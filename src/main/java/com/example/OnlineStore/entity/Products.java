@@ -2,7 +2,7 @@ package com.example.OnlineStore.entity;
 
 
 import com.example.OnlineStore.enums.ProductType;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

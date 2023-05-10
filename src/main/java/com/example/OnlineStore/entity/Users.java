@@ -1,6 +1,6 @@
 package com.example.OnlineStore.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +21,5 @@ public class Users {
     private String password;
 
     @OneToOne
-    private Basket basket;
+    private Cart basket;
 }
