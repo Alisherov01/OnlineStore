@@ -6,6 +6,7 @@ import com.example.OnlineStore.repository.ProductRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,8 +15,20 @@ import java.util.Optional;
 public class ProductService {
     ProductRepo productRepo;
 
-    public List<Products> getAll(){
-        return productRepo.findAll();
+    public List<ProductDto> getAll() {
+        List<ProductDto> dtos = new ArrayList<>();
+        List<Products> products = productRepo.findAll();
+        for (Products p : products) {
+            ProductDto dto = new ProductDto();
+            dto.setProductName(p.getProductName());
+            dto.setProductColor(p.getProductColor());
+            dto.setProductSize(p.getProductSize());
+            dto.setBrand(p.getBrand());
+            dto.setProductType(p.getProductType());
+            dto.setProductPrice(p.getProductPrice());
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
     public ProductDto getById(Long id) throws Exception {
