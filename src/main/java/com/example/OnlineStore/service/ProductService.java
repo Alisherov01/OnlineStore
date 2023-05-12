@@ -32,18 +32,18 @@ public class ProductService {
     }
 
     public ProductDto getById(Long id) throws Exception {
-        Optional<Products> user = productRepo.findById(id);
+        Optional<Products> products = productRepo.findById(id);
         ProductDto dto = new ProductDto();
-        if (user.isPresent()) {
-            dto.setProductName(user.get().getProductName());
-            dto.setProductColor(user.get().getProductColor());
-            dto.setProductSize(user.get().getProductSize());
-            dto.setBrand(user.get().getBrand());
-            dto.setProductType(user.get().getProductType());
-            dto.setProductPrice(user.get().getProductPrice());
-            dto.setCategories(user.get().getCategories());
+        if (products.isPresent()) {
+            dto.setProductName(products.get().getProductName());
+            dto.setProductColor(products.get().getProductColor());
+            dto.setProductSize(products.get().getProductSize());
+            dto.setBrand(products.get().getBrand());
+            dto.setProductType(products.get().getProductType());
+            dto.setProductPrice(products.get().getProductPrice());
+            dto.setCategories(products.get().getCategories());
         } else {
-            throw new Exception("Пользователя с такой " + id + " не существует");
+            throw new Exception("Товара с такими данными не существует");
         }
         return dto;
     }
