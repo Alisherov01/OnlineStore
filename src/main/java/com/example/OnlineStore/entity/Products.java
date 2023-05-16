@@ -22,13 +22,15 @@ public class Products {
 
     private String productSize;
 
-    @Column(unique = true, length = 70)
+    @Column(length = 70)
     private String brand;
 
     @Enumerated(EnumType.STRING)
     ProductType productType;
 
     private String productPrice;
+
+    private String productDiscount;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")

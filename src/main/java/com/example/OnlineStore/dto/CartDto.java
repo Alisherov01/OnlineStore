@@ -8,11 +8,11 @@ import java.util.List;
 public class CartDto {
     private Long id;
 
-    private String ordersSum;
+    private Integer ordersSum;
 
-    private String discountSum;
+    private Integer discountSum;
 
-    private String productAmount;
+    private Integer productAmount;
 
     private List<Products> products;
 }
