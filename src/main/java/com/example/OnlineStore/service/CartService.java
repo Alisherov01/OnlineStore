@@ -2,6 +2,7 @@ package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.CartDto;
 import com.example.OnlineStore.entity.Cart;
+import com.example.OnlineStore.mappers.CartMapper;
 import com.example.OnlineStore.repository.CartRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CartService {
     CartRepo cartRepo;
+
+
+    CartMapper cartMapper;
+
 
 
     public List<CartDto> getAll() {
@@ -43,4 +48,34 @@ public class CartService {
         }
         return dto;
     }
+
+    public Long saveInCart (CartDto dto){
+        Cart cart = cartRepo.findById(dto.getId()).get();
+        Cart newCart = new Cart();
+
+        newCart.setProducts(dto.getProducts());
+        newCart.setProductAmount(dto.getProductAmount());
+        newCart.setOrdersSum(dto.getOrdersSum());
+        newCart.setDiscountSum(dto.getDiscountSum());
+
+        newCart = cartRepo.save(cart);
+        return newCart.getId();
+    }
+
+
+    public void delete(Long id){
+        cartRepo.deleteById(id);
+    }
+
+    public CartDto removeFromCart (Long id){
+        Cart cart = cartRepo.findById(id).get();
+        if(cart.getProductAmount() == 0){
+            delete(id);
+        }else {
+            cart.setProductAmount(cart.getProductAmount() - 1);
+            return cartMapper.mapToDto(cartRepo.save(cart));
+        }
+        return null;
+    }
+
 }
