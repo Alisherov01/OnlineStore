@@ -21,8 +21,8 @@ public class CategoriesService {
 
     public List<CategoriesDto> getAll() {
         List<CategoriesDto> dtos = new ArrayList<>();
-        List<Categories> products = categoriesRepo.findAll();
-        for (Categories p : products) {
+        List<Categories> categories = categoriesRepo.findAll();
+        for (Categories p : categories) {
             CategoriesDto dto = new CategoriesDto();
             dto.setCategoryName(p.getCategoryName());
             dtos.add(dto);

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -22,4 +24,7 @@ public class Users {
 
     @OneToOne
     private Cart basket;
+
+    @OneToMany(mappedBy = "user")
+    private List<History> histories;
 }
