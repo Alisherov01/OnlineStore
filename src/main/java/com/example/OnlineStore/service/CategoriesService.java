@@ -2,7 +2,6 @@ package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.CategoriesDto;
 import com.example.OnlineStore.entity.Categories;
-import com.example.OnlineStore.entity.Products;
 import com.example.OnlineStore.mappers.CategoriesMapper;
 import com.example.OnlineStore.repository.CategoriesRepo;
 import lombok.AllArgsConstructor;

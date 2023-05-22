@@ -17,12 +17,15 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 50)
     private Integer ordersSum;
 
+    @Column(length = 50)
     private Integer discountSum;
 
+    @Column(length = 50)
     private Integer productAmount;
 
-    @OneToMany
+    @OneToMany(mappedBy = "cart")
     private List<Products> products;
 }

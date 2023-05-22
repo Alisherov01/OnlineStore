@@ -7,25 +7,26 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api")
 public class PaymentController {
     PaymentService service;
 
-    @PostMapping("POST /payment")
+    @PostMapping("payment")
     public Long create(@RequestBody PaymentDto dto) {
         return service.create(dto);
     }
 
-    @GetMapping("GET /payment/{id}")
+    @GetMapping("payment/{id}")
     public PaymentDto getById(@PathVariable Long id) throws Exception {
         return service.getById(id);
     }
 
-    @PutMapping("PUT /payment/{id}")
+    @PutMapping("payment/{id}")
     public PaymentDto update(@PathVariable Long id) {
         return service.update(id);
     }
 
-    @DeleteMapping("DELETE /payment/{id}")
+    @DeleteMapping("payment/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }

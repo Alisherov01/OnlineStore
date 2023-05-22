@@ -16,10 +16,13 @@ public class Products {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 50)
     private String productName;
 
+    @Column(length = 50)
     private String productColor;
 
+    @Column(length = 50)
     private String productSize;
 
     @Column(length = 70)
@@ -28,9 +31,15 @@ public class Products {
     @Enumerated(EnumType.STRING)
     ProductType productType;
 
+    @Column(length = 50)
     private String productPrice;
 
+    @Column(length = 50)
     private String productDiscount;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id",referencedColumnName = "id")
+    private Cart cart;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")

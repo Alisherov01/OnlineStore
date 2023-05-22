@@ -1,11 +1,11 @@
 package com.example.OnlineStore.entity;
 
-import javax.persistence.*;
+import com.example.OnlineStore.enums.UserRoles;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -16,15 +16,24 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 80)
     private String userName;
 
+    @Column(unique = true)
     private String email;
 
+    @Column(length = 30)
     private String password;
 
-    @OneToOne
-    private Cart basket;
+    @Enumerated(EnumType.STRING)
+    private UserRoles userRoles;
 
-    @OneToMany(mappedBy = "user")
-    private List<History> histories;
+    @OneToOne
+    private Cart cart;
+
+    @OneToOne
+    private Card card;
+
+    @OneToOne
+    private History histories;
 }

@@ -7,15 +7,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api")
 public class OrderController {
     OrderService service;
 
-    @GetMapping("/api/order/{id}")
+    @GetMapping("/order/{id}")
     public OrderDto getById(@PathVariable Long id) throws Exception {
         return service.getById(id);
     }
 
-    @PostMapping("/api/order")
+    @PostMapping("/order")
     public Long save(@RequestBody OrderDto dto){
         return service.save(dto);
     }

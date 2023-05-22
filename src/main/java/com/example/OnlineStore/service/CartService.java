@@ -15,11 +15,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CartService {
     CartRepo cartRepo;
-
-
     CartMapper cartMapper;
-
-
 
     public List<CartDto> getAll() {
         List<CartDto> dtos = new ArrayList<>();
@@ -27,7 +23,17 @@ public class CartService {
         for (Cart p : carts) {
             CartDto dto = new CartDto();
             dto.setOrdersSum(p.getOrdersSum());
+            if(p.getOrdersSum() == 1){
+                 dto.setOrdersSum((p.getOrdersSum()/100)*p.getDiscountSum());
+            }else{
+                dto.setOrdersSum(p.getOrdersSum() * p.getProductAmount());
+            }
             dto.setDiscountSum(p.getDiscountSum());
+            if(p.getDiscountSum() == 1){
+                dto.setDiscountSum(p.getDiscountSum());
+            }else{
+                dto.setDiscountSum(p.getDiscountSum() * p.getProductAmount());
+            }
             dto.setProductAmount(p.getProductAmount());
             dto.setProducts(p.getProducts());
             dtos.add(dto);
@@ -50,15 +56,13 @@ public class CartService {
     }
 
     public Long saveInCart (CartDto dto){
-        Cart cart = cartRepo.findById(dto.getId()).get();
         Cart newCart = new Cart();
 
-        newCart.setProducts(dto.getProducts());
         newCart.setProductAmount(dto.getProductAmount());
         newCart.setOrdersSum(dto.getOrdersSum());
         newCart.setDiscountSum(dto.getDiscountSum());
 
-        newCart = cartRepo.save(cart);
+        newCart = cartRepo.save(newCart);
         return newCart.getId();
     }
 
@@ -69,7 +73,7 @@ public class CartService {
 
     public CartDto removeFromCart (Long id){
         Cart cart = cartRepo.findById(id).get();
-        if(cart.getProductAmount() == 0){
+        if(cart.getProductAmount() < 1){
             delete(id);
         }else {
             cart.setProductAmount(cart.getProductAmount() - 1);
