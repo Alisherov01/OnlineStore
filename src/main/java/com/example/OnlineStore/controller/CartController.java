@@ -16,6 +16,22 @@ import java.util.List;
 public class CartController {
     CartService cartService;
 
+    @GetMapping("/api/acrt/{id}")
+    public ResponseMessage<CartDto> getById(@PathVariable Long id){
+        try {
+            return new ResponseMessage<>(
+                    cartService.getById(id),
+                    ResultCode.SUCCESS,
+                    "Корзина успешно найдено. ",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("CartController: getById ", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
+    }
+
+
     @GetMapping("/api/cart")
     public ResponseMessage<List<CartDto>> getAll() {
         try {

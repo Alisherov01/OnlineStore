@@ -17,7 +17,7 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @DateTimeFormat(pattern = "MM, dd, yyyy HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy:MM:dd")
     private Timestamp orderTime;
 
 }

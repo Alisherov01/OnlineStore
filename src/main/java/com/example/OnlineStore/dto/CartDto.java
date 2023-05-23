@@ -10,8 +10,6 @@ public class CartDto {
 
     private Integer ordersSum;
 
-    private Integer discountSum;
-
     private Integer productAmount;
 
     private List<Products> products;

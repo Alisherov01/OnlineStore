@@ -16,14 +16,20 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 80)
     private String userName;
 
+    @Column(unique = true)
     private String email;
 
+    @Column(length = 30)
     private String password;
 
     @OneToOne
-    private Cart basket;
+    private Cart cart;
+
+    @OneToOne
+    private Card card;
 
     @OneToMany(mappedBy = "users")
     private List<History> histories;

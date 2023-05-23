@@ -22,13 +22,28 @@ public class CategoriesController {
     CategoriesService categoriesService;
     ProductService productService;
 
+    @GetMapping("/api/categories/{id}")
+    public ResponseMessage<CategoriesDto> getById(Long id) {
+        try {
+            return new ResponseMessage<>(
+                    categoriesService.getById(id),
+                    ResultCode.SUCCESS,
+                    "Категория успешно найдены. ",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("CategoriesController:  getAll", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
+    }
+
     @GetMapping("/api/categories")
     public ResponseMessage<List<CategoriesDto>> getAll() {
         try {
             return new ResponseMessage<>(
                     categoriesService.getAll(),
                     ResultCode.SUCCESS,
-                    "Катенгории успешно найдены. ",
+                    "Категории успешно найдены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("CategoriesController:  getAll", e);

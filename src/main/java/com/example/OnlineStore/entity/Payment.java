@@ -1,13 +1,12 @@
 package com.example.OnlineStore.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
 
@@ -20,8 +19,10 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @DateTimeFormat(pattern = "yyyy:MM:dd")
     private Timestamp time;
 
+    @Column(length = 50)
     private String orderSum;
 
 }

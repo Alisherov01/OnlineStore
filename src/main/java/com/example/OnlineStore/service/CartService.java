@@ -27,7 +27,11 @@ public class CartService {
         for (Cart p : carts) {
             CartDto dto = new CartDto();
             dto.setOrdersSum(p.getOrdersSum());
-            dto.setDiscountSum(p.getDiscountSum());
+            if(p.getOrdersSum() == 1){
+                dto.setOrdersSum(p.getOrdersSum());
+            }else{
+                dto.setOrdersSum(p.getOrdersSum() * p.getProductAmount());
+            }
             dto.setProductAmount(p.getProductAmount());
             dto.setProducts(p.getProducts());
             dtos.add(dto);
@@ -40,7 +44,6 @@ public class CartService {
         CartDto dto = new CartDto();
         if (carts.isPresent()) {
             dto.setOrdersSum(carts.get().getOrdersSum());
-            dto.setDiscountSum(carts.get().getDiscountSum());
             dto.setProductAmount(carts.get().getProductAmount());
             dto.setProducts(carts.get().getProducts());
         } else {
@@ -49,17 +52,13 @@ public class CartService {
         return dto;
     }
 
-    public Long saveInCart (CartDto dto) throws Exception {
-        Cart cart = cartRepo.findById(dto.getId()).orElseThrow(() ->
-                new Exception("Карзина с такими данными не существует"));
-        Cart newCart = new Cart();
+    public Long saveInCart (CartDto dto) {
 
-        newCart.setProducts(dto.getProducts());
+        Cart newCart = new Cart();
         newCart.setProductAmount(dto.getProductAmount());
         newCart.setOrdersSum(dto.getOrdersSum());
-        newCart.setDiscountSum(dto.getDiscountSum());
 
-        newCart = cartRepo.save(cart);
+        newCart = cartRepo.save(newCart);
         return newCart.getId();
     }
 

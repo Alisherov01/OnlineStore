@@ -1,29 +1,23 @@
 package com.example.OnlineStore.entity;
 
-
 import com.example.OnlineStore.enums.ProductType;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class Products {
+public class DiscountProducts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 50)
     private String productName;
-
-    @Column(length = 50)
-    private String productColor;
-
-    @Column(length = 50)
-    private String productSize;
 
     @Column(length = 70)
     private String brand;
@@ -36,12 +30,4 @@ public class Products {
 
     @Column(length = 50)
     private String productDiscount;
-
-    @ManyToOne
-    @JoinColumn(name = "cart_id",referencedColumnName = "id")
-    private Cart cart;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Categories categories;
 }
