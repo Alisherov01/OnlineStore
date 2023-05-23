@@ -6,6 +6,7 @@ import com.example.OnlineStore.repository.ProductRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,28 +15,50 @@ import java.util.Optional;
 public class ProductService {
     ProductRepo productRepo;
 
-    public List<Products> getAll(){
-        return productRepo.findAll();
+    public List<ProductDto> getAll() {
+        List<ProductDto> dtos = new ArrayList<>();
+        List<Products> products = productRepo.findAll();
+        return getProductDtos(products, dtos);
     }
 
     public ProductDto getById(Long id) throws Exception {
-        Optional<Products> user = productRepo.findById(id);
+        Optional<Products> products = productRepo.findById(id);
         ProductDto dto = new ProductDto();
-        if (user.isPresent()) {
-            dto.setProductName(user.get().getProductName());
-            dto.setProductColor(user.get().getProductColor());
-            dto.setProductSize(user.get().getProductSize());
-            dto.setBrand(user.get().getBrand());
-            dto.setProductType(user.get().getProductType());
-            dto.setProductPrice(user.get().getProductPrice());
-            dto.setCategories(user.get().getCategories());
+        if (products.isPresent()) {
+            dto.setProductName(products.get().getProductName());
+            dto.setProductColor(products.get().getProductColor());
+            dto.setProductSize(products.get().getProductSize());
+            dto.setBrand(products.get().getBrand());
+            dto.setProductType(products.get().getProductType());
+            dto.setProductPrice(products.get().getProductPrice());
+            dto.setCategories(products.get().getCategories());
         } else {
-            throw new Exception("Пользователя с такой " + id + " не существует");
+            throw new Exception("Товара с такими данными не существует");
         }
         return dto;
     }
 
     public void deleteProduct(Long id) {
         productRepo.deleteById(id);
+    }
+
+    public List<ProductDto> getProductsByCategoryId(Long categoriesId) {
+        List<Products> products = productRepo.getProductsByCategories(categoriesId);
+        List<ProductDto> dtos = new ArrayList<>();
+        return getProductDtos(products, dtos);
+    }
+
+    private List<ProductDto> getProductDtos(List<Products> products, List<ProductDto> dtos) {
+        for (Products p : products) {
+            ProductDto dto = new ProductDto();
+            dto.setProductName(p.getProductName());
+            dto.setProductColor(p.getProductColor());
+            dto.setProductSize(p.getProductSize());
+            dto.setBrand(p.getBrand());
+            dto.setProductType(p.getProductType());
+            dto.setProductPrice(p.getProductPrice());
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }

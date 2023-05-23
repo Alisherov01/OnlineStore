@@ -17,11 +17,11 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String ordersSum;
+    private Integer ordersSum;
 
-    private String discountSum;
+    private Integer discountSum;
 
-    private String productAmount;
+    private Integer productAmount;
 
     @OneToMany
     private List<Products> products;

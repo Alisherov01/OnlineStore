@@ -1,12 +1,12 @@
 package com.example.OnlineStore.dto;
 
-
 import lombok.Data;
 
 import java.sql.Timestamp;
+
 @Data
-public class OrderDto {
+public class PaymentDto {
+    private Timestamp time;
 
-    private Timestamp orderTime;
-
+    private String orderSum;
 }

@@ -1,7 +1,9 @@
 package com.example.OnlineStore.repository;
 
 import com.example.OnlineStore.entity.Cart;
+import com.example.OnlineStore.entity.Products;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository

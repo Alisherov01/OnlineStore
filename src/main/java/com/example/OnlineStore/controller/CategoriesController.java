@@ -1,9 +1,10 @@
 package com.example.OnlineStore.controller;
 
+import com.example.OnlineStore.dto.CategoriesDto;
 import com.example.OnlineStore.dto.ProductDto;
 import com.example.OnlineStore.entity.ResponseMessage;
 import com.example.OnlineStore.enums.ResultCode;
-import com.example.OnlineStore.mappers.ProductMapper;
+import com.example.OnlineStore.service.CategoriesService;
 import com.example.OnlineStore.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,38 +14,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 @RestController
 @AllArgsConstructor
 @Slf4j
-public class ProductController {
-    ProductService service;
-    ProductMapper mapper;
+public class CategoriesController {
+    CategoriesService categoriesService;
+    ProductService productService;
 
-    @GetMapping("/api/products")
-    public ResponseMessage<List<ProductDto>> getAll() {
+    @GetMapping("/api/categories")
+    public ResponseMessage<List<CategoriesDto>> getAll() {
         try {
             return new ResponseMessage<>(
-                    service.getAll(),
+                    categoriesService.getAll(),
                     ResultCode.SUCCESS,
-                    "Продукты успешно найдены. ",
+                    "Катенгории успешно найдены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("ProductController: getAll ", e);
+            log.error("CategoriesController:  getAll", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
     }
 
-    @GetMapping("/api/products/{id}")
-    public ResponseMessage<ProductDto> getById(@PathVariable Long id) {
-        try{
+    @GetMapping("/api/categories/{id}/product")
+    public ResponseMessage<List<ProductDto>> getProductsByCategoryId(@PathVariable Long id){
+        try {
             return new ResponseMessage<>(
-                    service.getById(id),
+                    productService.getProductsByCategoryId(id),
                     ResultCode.SUCCESS,
                     "Продукт успешно найден. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("ProductController: getById ", e);
+            log.error("CategoriesController: getProductsByCategoryId ", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }

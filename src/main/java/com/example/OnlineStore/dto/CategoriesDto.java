@@ -7,9 +7,9 @@ import lombok.Data;
 import java.util.List;
 @Data
 public class CategoriesDto {
-    private Long id;
 
     private String categoryName;
+    private Integer productAmount;
 
     private List<Products> products;
 }
