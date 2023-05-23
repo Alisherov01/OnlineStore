@@ -18,17 +18,7 @@ public class ProductService {
     public List<ProductDto> getAll() {
         List<ProductDto> dtos = new ArrayList<>();
         List<Products> products = productRepo.findAll();
-        for (Products p : products) {
-            ProductDto dto = new ProductDto();
-            dto.setProductName(p.getProductName());
-            dto.setProductColor(p.getProductColor());
-            dto.setProductSize(p.getProductSize());
-            dto.setBrand(p.getBrand());
-            dto.setProductType(p.getProductType());
-            dto.setProductPrice(p.getProductPrice());
-            dtos.add(dto);
-        }
-        return dtos;
+        return getProductDtos(products, dtos);
     }
 
     public ProductDto getById(Long id) throws Exception {
@@ -50,5 +40,25 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         productRepo.deleteById(id);
+    }
+
+    public List<ProductDto> getProductsByCategoryId(Long categoriesId) {
+        List<Products> products = productRepo.getProductsByCategories(categoriesId);
+        List<ProductDto> dtos = new ArrayList<>();
+        return getProductDtos(products, dtos);
+    }
+
+    private List<ProductDto> getProductDtos(List<Products> products, List<ProductDto> dtos) {
+        for (Products p : products) {
+            ProductDto dto = new ProductDto();
+            dto.setProductName(p.getProductName());
+            dto.setProductColor(p.getProductColor());
+            dto.setProductSize(p.getProductSize());
+            dto.setBrand(p.getBrand());
+            dto.setProductType(p.getProductType());
+            dto.setProductPrice(p.getProductPrice());
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }

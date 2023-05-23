@@ -25,6 +25,6 @@ public class Users {
     @OneToOne
     private Cart basket;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<History> histories;
 }

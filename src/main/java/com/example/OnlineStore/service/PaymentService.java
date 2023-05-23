@@ -46,8 +46,9 @@ public class PaymentService {
         return paymentRepo.save(payment).getId();
     }
 
-    public PaymentDto update(Long id) {
-        Payment payment = paymentRepo.findById(id).get();
+    public PaymentDto update(Long id) throws Exception {
+        Payment payment = paymentRepo.findById(id).orElseThrow(() ->
+                new Exception("Платежа с такимим данными не существует."));
         PaymentDto dto = new PaymentDto();
         dto.setTime(payment.getTime());
         dto.setOrderSum(payment.getOrderSum());

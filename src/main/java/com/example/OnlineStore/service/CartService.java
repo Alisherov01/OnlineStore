@@ -49,8 +49,9 @@ public class CartService {
         return dto;
     }
 
-    public Long saveInCart (CartDto dto){
-        Cart cart = cartRepo.findById(dto.getId()).get();
+    public Long saveInCart (CartDto dto) throws Exception {
+        Cart cart = cartRepo.findById(dto.getId()).orElseThrow(() ->
+                new Exception("Карзина с такими данными не существует"));
         Cart newCart = new Cart();
 
         newCart.setProducts(dto.getProducts());
@@ -67,8 +68,9 @@ public class CartService {
         cartRepo.deleteById(id);
     }
 
-    public CartDto removeFromCart (Long id){
-        Cart cart = cartRepo.findById(id).get();
+    public CartDto removeFromCart (Long id) throws Exception {
+        Cart cart = cartRepo.findById(id).orElseThrow(() ->
+                new Exception("Карзина с такими данными не существует"));;
         if(cart.getProductAmount() == 0){
             delete(id);
         }else {
@@ -77,5 +79,4 @@ public class CartService {
         }
         return null;
     }
-
 }
