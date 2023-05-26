@@ -51,8 +51,8 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/api/products/remove")
-    public void delete (Long id){
+    @DeleteMapping("/api/products/remove/{id}")
+    public void delete (@PathVariable Long id){
         service.deleteProduct(id);
     }
 }

@@ -41,8 +41,8 @@ public class PaymentService {
 
     public Long create(PaymentDto dto) {
         Payment payment = new Payment();
-        dto.setTime(payment.getTime());
-        dto.setOrderSum(payment.getOrderSum());
+        payment.setTime(dto.getTime());
+        payment.setOrderSum(dto.getOrderSum());
         return paymentRepo.save(payment).getId();
     }
 

@@ -23,12 +23,12 @@ public class CategoriesController {
     ProductService productService;
 
     @GetMapping("/api/categories/{id}")
-    public ResponseMessage<CategoriesDto> getById(Long id) {
+    public ResponseMessage<CategoriesDto> getById(@PathVariable Long id) {
         try {
             return new ResponseMessage<>(
                     categoriesService.getById(id),
                     ResultCode.SUCCESS,
-                    "Категория успешно найдены. ",
+                    "Категория успешно найдена. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("CategoriesController:  getAll", e);

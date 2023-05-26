@@ -25,6 +25,7 @@ public class CategoriesService {
         for (Categories p : categories) {
             CategoriesDto dto = new CategoriesDto();
             dto.setCategoryName(p.getCategoryName());
+            dto.setProductAmount(p.getProductAmount());
             dtos.add(dto);
         }
         return dtos;
@@ -36,7 +37,7 @@ public class CategoriesService {
         CategoriesDto dto = new CategoriesDto();
         if (categories.isPresent()) {
             dto.setCategoryName(categories.get().getCategoryName());
-            dto.setProducts(categories.get().getProducts());
+            dto.setProductAmount(categories.get().getProductAmount());
         } else {
             throw new Exception("Категории с такими данными не существует");
         }

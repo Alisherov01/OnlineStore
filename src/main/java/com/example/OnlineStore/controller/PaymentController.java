@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
     PaymentService service;
 
-    @PostMapping("POST /payment")
+    @PostMapping("/POST/payment")
     public ResponseMessage<Long> create(@RequestBody PaymentDto dto) {
         try {
             return new ResponseMessage<>(
@@ -29,7 +29,7 @@ public class PaymentController {
         }
     }
 
-    @GetMapping("GET /payment/{id}")
+    @GetMapping("/GET/payment/{id}")
     public ResponseMessage<PaymentDto> getById(@PathVariable Long id) throws Exception {
         try {
             return new ResponseMessage<>(
@@ -44,7 +44,7 @@ public class PaymentController {
         }
     }
 
-    @PutMapping("PUT /payment/{id}")
+    @PutMapping("/PUT/payment/{id}")
     public ResponseMessage<PaymentDto> update(@PathVariable Long id) throws Exception {
         try {
             return new ResponseMessage<>(
@@ -59,7 +59,7 @@ public class PaymentController {
         }
     }
 
-    @DeleteMapping("DELETE /payment/{id}")
+    @DeleteMapping("/DELETE/payment/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }

@@ -12,5 +12,4 @@ public class CategoriesDto {
 
     private Integer productAmount;
 
-    private List<Products> products;
 }

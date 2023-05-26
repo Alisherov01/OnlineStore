@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Products,Long> {
-    @Query(value = "select * from products where category_id = ?", nativeQuery = true)
+    @Query(value = "select * from products where categories_id = ?", nativeQuery = true)
     List<Products> getProductsByCategories(Long id);
 }

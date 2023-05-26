@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
@@ -18,6 +19,6 @@ public class Orders {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy:MM:dd")
-    private Timestamp orderTime;
+    private LocalDate orderTime;
 
 }

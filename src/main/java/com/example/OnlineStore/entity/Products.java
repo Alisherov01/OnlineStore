@@ -38,10 +38,10 @@ public class Products {
     private String productDiscount;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id",referencedColumnName = "id")
+//    @JoinColumn(name = "cart_id",referencedColumnName = "id")
     private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+//    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Categories categories;
 }
