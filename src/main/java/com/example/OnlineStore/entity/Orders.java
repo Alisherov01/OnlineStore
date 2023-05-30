@@ -18,7 +18,10 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 100)
+    private String userFullName;
+
     @DateTimeFormat(pattern = "yyyy:MM:dd")
-    private LocalDate orderTime;
+    private LocalDate orderTime = LocalDate.now();
 
 }

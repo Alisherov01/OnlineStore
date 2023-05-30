@@ -1,6 +1,8 @@
 package com.example.OnlineStore.entity;
 
 import javax.persistence.*;
+
+import com.example.OnlineStore.enums.UserRoles;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,12 +27,13 @@ public class Users {
     @Column(length = 30)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private UserRoles userRoles;
+
     @OneToOne
     private Cart cart;
 
     @OneToOne
     private Card card;
 
-    @OneToMany(mappedBy = "users")
-    private List<History> histories;
 }

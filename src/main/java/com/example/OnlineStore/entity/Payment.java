@@ -21,9 +21,8 @@ public class Payment {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy:MM:dd")
-    private LocalDate time;
+    private LocalDate time = LocalDate.now();
 
     @Column(length = 50)
     private String orderSum;
-
 }

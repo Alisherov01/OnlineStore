@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepo extends JpaRepository<Users,Long> {
-    @Query(value = "Select * from users where user_name = ?",nativeQuery = true)
-    Users getUserByHisUserName(String userName);
+    Users findUserByUserName(String username);
 }
