@@ -23,15 +23,15 @@ public class Card {
     @Column(unique = true)
     @Min(value = 16)
     @Max(value = 16)
-    private Integer cartNumber;
+    private String cartNumber;
 
     @Column(unique = true)
     @Min(value = 4)
     @Max(value = 4)
-    private Integer CVVCode;
+    private String CVVCode;
 
     @Column(length = 100)
-    private Double cardBalance;
+    private Integer cardBalance;
 
     @OneToOne
     private Users users;

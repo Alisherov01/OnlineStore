@@ -16,7 +16,7 @@ import java.util.List;
 public class CartController {
     CartService cartService;
 
-    @GetMapping("/api/acrt/{id}")
+    @GetMapping("/api/cart/{id}")
     public ResponseMessage<CartDto> getById(@PathVariable Long id){
         try {
             return new ResponseMessage<>(

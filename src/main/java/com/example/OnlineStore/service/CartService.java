@@ -15,11 +15,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CartService {
     CartRepo cartRepo;
-
-
     CartMapper cartMapper;
-
-
 
     public List<CartDto> getAll() {
         List<CartDto> dtos = new ArrayList<>();

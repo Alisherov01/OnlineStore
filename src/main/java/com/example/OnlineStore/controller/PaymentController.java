@@ -1,8 +1,11 @@
 package com.example.OnlineStore.controller;
 
+import com.example.OnlineStore.dto.CardDto;
 import com.example.OnlineStore.dto.PaymentDto;
+import com.example.OnlineStore.entity.Card;
 import com.example.OnlineStore.entity.ResponseMessage;
 import com.example.OnlineStore.enums.ResultCode;
+import com.example.OnlineStore.service.CardService;
 import com.example.OnlineStore.service.PaymentService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class PaymentController {
     PaymentService service;
+    CardService cardService;
 
     @PostMapping("POST /payment")
     public ResponseMessage<Long> create(@RequestBody PaymentDto dto) {
@@ -45,7 +49,7 @@ public class PaymentController {
     }
 
     @PutMapping("PUT /payment/{id}")
-    public ResponseMessage<PaymentDto> update(@PathVariable Long id) throws Exception {
+    public ResponseMessage<PaymentDto> update(@PathVariable Long id) {
         try {
             return new ResponseMessage<>(
                     service.update(id),
@@ -62,5 +66,20 @@ public class PaymentController {
     @DeleteMapping("DELETE /payment/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
+    }
+
+    @PostMapping("/payment/card")
+    public ResponseMessage<Integer> payWithCard(@RequestParam String CVVCode, @RequestParam Long id) {
+        try {
+            return new ResponseMessage<>(
+                    cardService.payWithCard(CVVCode, id),
+                    ResultCode.SUCCESS,
+                    "Оплата успешно выполнено.",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("PaymentService: payWithCard", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
     }
 }
