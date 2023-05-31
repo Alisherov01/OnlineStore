@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,12 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     private UserRoles userRoles;
+
+    @Column(name = "reset_token")
+    private String resetToken;
+
+    @Column(name = "reset_token_expire_time")
+    private LocalDateTime resetTokenExpireTime;
 
     @OneToOne
     private Cart cart;

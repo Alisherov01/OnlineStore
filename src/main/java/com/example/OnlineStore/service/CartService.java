@@ -26,13 +26,14 @@ public class CartService {
         List<Cart> carts = cartRepo.findAll();
         for (Cart p : carts) {
             CartDto dto = new CartDto();
-            dto.setOrdersSum(p.getOrdersSum());
-            if(p.getOrdersSum() == 1){
-                dto.setOrdersSum(p.getOrdersSum());
-            }else{
-                dto.setOrdersSum(p.getOrdersSum() * p.getProductAmount());
-            }
+            dto.setOrderPrice(p.getOrderPrice());
             dto.setProductAmount(p.getProductAmount());
+            dto.setOrdersSum(p.getOrdersSum());
+            if(p.getOrderPrice() == 1){
+                dto.setOrdersSum(p.getOrderPrice());
+            }else{
+                dto.setOrdersSum(p.getOrderPrice() * p.getProductAmount());
+            }
             dto.setProducts(p.getProducts());
             dtos.add(dto);
         }
@@ -55,8 +56,8 @@ public class CartService {
     public Long saveInCart (CartDto dto) {
 
         Cart newCart = new Cart();
+        newCart.setOrderPrice(dto.getOrderPrice());
         newCart.setProductAmount(dto.getProductAmount());
-        newCart.setOrdersSum(dto.getOrdersSum());
 
         newCart = cartRepo.save(newCart);
         return newCart.getId();

@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Data
 public class OrderDto {
 
-    private LocalDate orderTime;
+    private String fullName;
+
+    private LocalDate orderTime = LocalDate.now();
 
 }

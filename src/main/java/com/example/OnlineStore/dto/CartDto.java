@@ -7,6 +7,8 @@ import java.util.List;
 @Data
 public class CartDto {
 
+    private Integer orderPrice;
+
     private Integer ordersSum;
 
     private Integer productAmount;

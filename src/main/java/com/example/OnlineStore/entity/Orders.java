@@ -19,7 +19,7 @@ public class Orders {
     private Long id;
 
     @Column(length = 100)
-    private String userFullName;
+    private String fullName;
 
     @DateTimeFormat(pattern = "yyyy:MM:dd")
     private LocalDate orderTime = LocalDate.now();

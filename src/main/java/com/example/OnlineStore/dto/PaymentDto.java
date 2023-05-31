@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 public class PaymentDto {
 
-    private LocalDate time;
+    private LocalDate time = LocalDate.now();
 
     private String orderSum;
 
