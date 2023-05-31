@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private UsersService usersService;
+
     @PostMapping("/registration")
     public Long userRegistration(@RequestBody UserDto users){
         return usersService.createUser(users);
     }
+
 
 }
 

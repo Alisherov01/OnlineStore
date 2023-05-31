@@ -41,6 +41,7 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/authenticate").permitAll()
+                .antMatchers("/swagger-ui/").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/auth/**").authenticated()
                 .anyRequest().authenticated()
