@@ -13,31 +13,17 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Slf4j
+@RequestMapping("/auth")
 public class OrderController {
-    OrderService service;
+    OrderService orderService;
 
     @GetMapping("/api/order/{id}")
     public ResponseMessage<OrderDto> getById(@PathVariable Long id) {
         try{
             return new ResponseMessage<>(
-                    service.getById(id),
+                    orderService.getById(id),
                     ResultCode.SUCCESS,
                     "Заказ успешно найден. ",
-                    ResultCode.SUCCESS.getHttpCode());
-        } catch (Exception e) {
-            log.error("OrderController: getById ", e);
-            return new ResponseMessage<>(
-                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
-        }
-    }
-
-    @GetMapping("/api/order/getAll")
-    public ResponseMessage<List<OrderDto>> getAll() {
-        try {
-            return new ResponseMessage<>(
-                    service.getAll(),
-                    ResultCode.SUCCESS,
-                    "Заказы успешно найдены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("OrderController: getById ", e);
@@ -50,7 +36,7 @@ public class OrderController {
     public ResponseMessage<Long> save(@RequestBody OrderDto dto) {
         try {
             return new ResponseMessage<>(
-                    service.save(dto),
+                    orderService.save(dto),
                     ResultCode.SUCCESS,
                     "Заказ успешно создан.",
                     ResultCode.SUCCESS.getHttpCode());
@@ -59,5 +45,10 @@ public class OrderController {
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
+    }
+
+    @DeleteMapping("/api/removeOrder/{id}")
+    void deleteOrder(@PathVariable Long id){
+        orderService.deleteOrder(id);
     }
 }

@@ -1,7 +1,11 @@
 package com.example.OnlineStore.service;
 
+import com.example.OnlineStore.dto.CategoriesDto;
 import com.example.OnlineStore.dto.ProductDto;
+import com.example.OnlineStore.entity.Cart;
+import com.example.OnlineStore.entity.Categories;
 import com.example.OnlineStore.entity.Products;
+import com.example.OnlineStore.enums.ProductType;
 import com.example.OnlineStore.repository.ProductRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -60,5 +64,16 @@ public class ProductService {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    public Long createProduct(ProductDto dto){
+        Products products = new Products();
+        products.setProductName(dto.getProductName());
+        products.setProductColor(dto.getProductColor());
+        products.setProductSize(dto.getProductSize());
+        products.setBrand(dto.getBrand());
+        products.setProductType(dto.getProductType());
+        products.setProductPrice(dto.getProductPrice());
+        return productRepo.save(products).getId();
     }
 }

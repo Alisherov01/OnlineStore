@@ -1,6 +1,8 @@
 package com.example.OnlineStore.service;
 
+import com.example.OnlineStore.dto.CartDto;
 import com.example.OnlineStore.dto.CategoriesDto;
+import com.example.OnlineStore.entity.Cart;
 import com.example.OnlineStore.entity.Categories;
 import com.example.OnlineStore.entity.Products;
 import com.example.OnlineStore.mappers.CategoriesMapper;
@@ -42,6 +44,17 @@ public class CategoriesService {
             throw new Exception("Категории с такими данными не существует");
         }
         return dto;
+    }
+
+    public void deleteCategory(Long id){
+        categoriesRepo.deleteById(id);
+    }
+
+    public Long createCategory(CategoriesDto dto){
+        Categories categories = new Categories();
+        categories.setCategoryName(dto.getCategoryName());
+        categories.setProductAmount(dto.getProductAmount());
+        return categoriesRepo.save(categories).getId();
     }
 
 }

@@ -2,7 +2,6 @@ package com.example.OnlineStore.dto;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Data
@@ -10,6 +9,6 @@ public class PaymentDto {
 
     private LocalDate time = LocalDate.now();
 
-    private String orderSum;
+    private Integer orderSum;
 
 }

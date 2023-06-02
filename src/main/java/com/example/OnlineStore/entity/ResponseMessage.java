@@ -37,8 +37,6 @@ public class ResponseMessage<T> {
         this.detailCode = detailCode;
     }
 
-
-
     @Override
     public String toString() {
         return "ResponseMessage{" +

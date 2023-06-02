@@ -42,4 +42,8 @@ public class CardService {
             throw new Exception("У вас не достаточна средств.");
         }
     }
+
+    public void delete(Long id) {
+        cardRepo.deleteById(id);
+    }
 }

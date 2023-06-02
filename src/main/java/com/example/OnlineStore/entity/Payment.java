@@ -24,5 +24,5 @@ public class Payment {
     private LocalDate time = LocalDate.now();
 
     @Column(length = 50)
-    private String orderSum;
+    private Integer orderSum;
 }

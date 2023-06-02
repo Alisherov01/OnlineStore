@@ -31,22 +31,6 @@ public class CartController {
         }
     }
 
-
-    @GetMapping("/api/cart")
-    public ResponseMessage<List<CartDto>> getAll() {
-        try {
-            return new ResponseMessage<>(
-                    cartService.getAll(),
-                    ResultCode.SUCCESS,
-                    "Корзина успешно найдено. ",
-                    ResultCode.SUCCESS.getHttpCode());
-        } catch (Exception e) {
-            log.error("CartController: getAll ", e);
-            return new ResponseMessage<>(
-                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
-        }
-    }
-
     @PostMapping("/api/cart/add")
     public ResponseMessage<Long> addProductInCart(@RequestBody CartDto dto) {
         try {
@@ -76,10 +60,4 @@ public class CartController {
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
     }
-
-    @DeleteMapping("/api/remove/{id}")
-    void delete(@PathVariable Long id){
-        cartService.delete(id);
-    }
-
 }
