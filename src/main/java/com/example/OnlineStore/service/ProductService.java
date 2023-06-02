@@ -1,11 +1,7 @@
 package com.example.OnlineStore.service;
 
-import com.example.OnlineStore.dto.CategoriesDto;
 import com.example.OnlineStore.dto.ProductDto;
-import com.example.OnlineStore.entity.Cart;
-import com.example.OnlineStore.entity.Categories;
 import com.example.OnlineStore.entity.Products;
-import com.example.OnlineStore.enums.ProductType;
 import com.example.OnlineStore.repository.ProductRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

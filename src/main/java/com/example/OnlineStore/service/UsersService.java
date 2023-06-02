@@ -3,6 +3,7 @@ package com.example.OnlineStore.service;
 import com.example.OnlineStore.dto.UserDto;
 import com.example.OnlineStore.entity.Users;
 import com.example.OnlineStore.enums.UserRoles;
+import com.example.OnlineStore.mappers.UserMapper;
 import com.example.OnlineStore.repository.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,9 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,8 +22,8 @@ import java.util.UUID;
 public class UsersService {
     private UserRepo userRepo;
     private EmailService emailService;
-
     private PasswordEncoder passwordEncoder;
+    private UserMapper userMapper;
 
     public Long createUser(UserDto dto){
         Users users = new Users();
@@ -29,7 +33,6 @@ public class UsersService {
         users.setUserRoles(UserRoles.USER);
         return userRepo.save(users).getId();
     }
-
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public String resetPassword(String email) throws Exception {
@@ -44,10 +47,10 @@ public class UsersService {
         userRepo.save(user);
 
         String emailText = "Здравствуйте, " + user.getUserName() +
-                "\nДля сброса пароля перейдите введите токен " + resetToken;
+                "\nДля сброса пароля введите токен " + resetToken;
 
         emailService.sendSimpleMessage(email, "Сброс пароля", emailText);
-        return resetToken;
+        return emailText;
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
@@ -68,4 +71,43 @@ public class UsersService {
         return user != null;
     }
 
+    public List<UserDto> getAllUsers() {
+        List<UserDto> dtos = new ArrayList<>();
+        List<Users> users = userRepo.findAll();
+        for (Users p : users) {
+            UserDto dto = new UserDto();
+            dto.setUserName(p.getUserName());
+            dto.setEmail(p.getEmail());
+            dto.setPassword(p.getPassword());
+            dto.setUserRoles(p.getUserRoles());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+    public UserDto getById(Long id) throws Exception {
+        Optional<Users> users = userRepo.findById(id);
+        UserDto dto = new UserDto();
+        if (users.isPresent()) {
+            dto.setUserName(users.get().getUserName());
+            dto.setEmail(users.get().getEmail());
+            dto.setPassword(users.get().getPassword());
+            dto.setUserRoles(users.get().getUserRoles());
+        } else {
+            throw new Exception("Пользователя с данным Id не существует!");
+        }
+        return dto;
+    }
+
+    public void deleteUsers(Long id) {
+        userRepo.deleteById(id);
+    }
+
+    public UserDto update(Long id, UserDto dto) throws Exception {
+        Users users = userRepo.findById(id).orElseThrow(() ->
+                new Exception("Пользователя с такими данными не существует."));
+        users.setUserName(dto.getUserName());
+        users.setEmail(dto.getEmail());
+        return userMapper.mapToDto(userRepo.save(users));
+    }
 }

@@ -1,14 +1,12 @@
 package com.example.OnlineStore.entity;
 
 
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Timestamp;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity

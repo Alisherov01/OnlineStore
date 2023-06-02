@@ -1,14 +1,12 @@
 package com.example.OnlineStore.entity;
 
-import javax.persistence.*;
-
 import com.example.OnlineStore.enums.UserRoles;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
