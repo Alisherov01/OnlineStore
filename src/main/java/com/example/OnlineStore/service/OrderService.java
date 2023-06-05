@@ -2,6 +2,7 @@ package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.OrderDto;
 import com.example.OnlineStore.entity.Orders;
+import com.example.OnlineStore.mappers.OrderMapper;
 import com.example.OnlineStore.repository.OrderRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class OrderService {
     OrderRepo orderRepo;
+    OrderMapper orderMapper;
 
     public List<OrderDto> getAll() {
         List<OrderDto> dtos = new ArrayList<>();
@@ -46,4 +48,19 @@ public class OrderService {
     public void deleteOrder(Long id){
         orderRepo.deleteById(id);
     }
+
+    public OrderDto update(Long id, OrderDto dto) throws Exception {
+        Orders orders = orderRepo.findById(id).orElseThrow(() ->
+                new Exception("Заказа с такими не существует. "));
+        orders.setFullName(dto.getFullName());
+        orders.setOrderTime(dto.getOrderTime());
+        orderRepo.save(orders);
+        return orderMapper.mapToDto(orders);
+    }
 }
+
+
+
+
+
+

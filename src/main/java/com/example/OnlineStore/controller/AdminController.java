@@ -102,6 +102,21 @@ public class AdminController {
         categoriesService.deleteCategory(id);
     }
 
+    @PutMapping("/api/categories/update")
+    public ResponseMessage<CategoriesDto> update(@RequestParam Long id, @RequestBody CategoriesDto dto) {
+        try {
+            return new ResponseMessage<>(
+                    categoriesService.update(id, dto),
+                    ResultCode.SUCCESS,
+                    "Категория успешно обновлена. ",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("error");
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
+    }
+
 
     //роуты для заказов
     @GetMapping("/api/order/getAll")
