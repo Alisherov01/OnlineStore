@@ -1,10 +1,6 @@
 package com.example.OnlineStore.dto;
 
-import com.example.OnlineStore.entity.Products;
 import lombok.Data;
-
-
-import java.util.List;
 @Data
 public class CategoriesDto {
 
@@ -12,5 +8,4 @@ public class CategoriesDto {
 
     private Integer productAmount;
 
-    private List<Products> products;
 }

@@ -61,4 +61,15 @@ public class ProductService {
         }
         return dtos;
     }
+
+    public Long createProduct(ProductDto dto){
+        Products products = new Products();
+        products.setProductName(dto.getProductName());
+        products.setProductColor(dto.getProductColor());
+        products.setProductSize(dto.getProductSize());
+        products.setBrand(dto.getBrand());
+        products.setProductType(dto.getProductType());
+        products.setProductPrice(dto.getProductPrice());
+        return productRepo.save(products).getId();
+    }
 }

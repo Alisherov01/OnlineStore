@@ -18,6 +18,9 @@ public class Cart {
     private Long id;
 
     @Column(length = 50)
+    private Integer orderPrice;
+
+    @Column(length = 50)
     private Integer ordersSum;
 
     @Column(length = 50)

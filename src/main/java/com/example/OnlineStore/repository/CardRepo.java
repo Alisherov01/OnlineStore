@@ -1,6 +1,5 @@
 package com.example.OnlineStore.repository;
 
-import com.example.OnlineStore.dto.CardDto;
 import com.example.OnlineStore.entity.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

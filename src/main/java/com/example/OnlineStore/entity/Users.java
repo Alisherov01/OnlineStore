@@ -1,12 +1,12 @@
 package com.example.OnlineStore.entity;
 
-import javax.persistence.*;
+import com.example.OnlineStore.enums.UserRoles;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
@@ -26,11 +26,8 @@ public class Users {
     @Column(length = 30)
     private String password;
 
-    @OneToOne
-    private Cart cart;
-
-    @OneToOne
-    private Card card;
+    @Enumerated(EnumType.STRING)
+    private UserRoles userRoles;
 
     @Column(name = "reset_token")
     private String resetToken;
@@ -38,6 +35,10 @@ public class Users {
     @Column(name = "reset_token_expire_time")
     private LocalDateTime resetTokenExpireTime;
 
-    @OneToMany(mappedBy = "users")
-    private List<History> histories;
+    @OneToOne
+    private Cart cart;
+
+    @OneToOne
+    private Card card;
+
 }

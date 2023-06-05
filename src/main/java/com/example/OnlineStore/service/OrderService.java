@@ -42,4 +42,8 @@ public class OrderService {
         orders.setOrderTime(dto.getOrderTime());
         return orderRepo.save(orders).getId();
     }
+
+    public void deleteOrder(Long id){
+        orderRepo.deleteById(id);
+    }
 }

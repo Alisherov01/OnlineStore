@@ -2,7 +2,6 @@ package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.CategoriesDto;
 import com.example.OnlineStore.entity.Categories;
-import com.example.OnlineStore.entity.Products;
 import com.example.OnlineStore.mappers.CategoriesMapper;
 import com.example.OnlineStore.repository.CategoriesRepo;
 import lombok.AllArgsConstructor;
@@ -25,6 +24,7 @@ public class CategoriesService {
         for (Categories p : categories) {
             CategoriesDto dto = new CategoriesDto();
             dto.setCategoryName(p.getCategoryName());
+            dto.setProductAmount(p.getProductAmount());
             dtos.add(dto);
         }
         return dtos;
@@ -36,11 +36,22 @@ public class CategoriesService {
         CategoriesDto dto = new CategoriesDto();
         if (categories.isPresent()) {
             dto.setCategoryName(categories.get().getCategoryName());
-            dto.setProducts(categories.get().getProducts());
+            dto.setProductAmount(categories.get().getProductAmount());
         } else {
             throw new Exception("Категории с такими данными не существует");
         }
         return dto;
+    }
+
+    public void deleteCategory(Long id){
+        categoriesRepo.deleteById(id);
+    }
+
+    public Long createCategory(CategoriesDto dto){
+        Categories categories = new Categories();
+        categories.setCategoryName(dto.getCategoryName());
+        categories.setProductAmount(dto.getProductAmount());
+        return categoriesRepo.save(categories).getId();
     }
 
 }

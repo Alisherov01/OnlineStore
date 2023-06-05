@@ -1,7 +1,6 @@
 package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.CardDto;
-import com.example.OnlineStore.dto.CartDto;
 import com.example.OnlineStore.entity.Card;
 import com.example.OnlineStore.entity.Cart;
 import com.example.OnlineStore.mappers.CartMapper;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CardService {
     CardRepo cardRepo;
     CartRepo cartRepo;
+
     CartMapper cartMapper;
 
     public Long save(CardDto dto) {
@@ -33,7 +33,7 @@ public class CardService {
         Cart cart = cartRepo.findById(id).orElseThrow(()
                 -> new Exception("Нет карзины с такими данными."));
         Card card = cardRepo.findCardByCVVCode(CVVCode);
-        if(cart.getOrdersSum() < card.getCardBalance()) {
+        if (cart.getOrdersSum() < card.getCardBalance()) {
             Integer res = card.getCardBalance() - cart.getOrdersSum();
             card.setCardBalance(res);
             cardRepo.save(card);
@@ -41,5 +41,9 @@ public class CardService {
         } else {
             throw new Exception("У вас не достаточна средств.");
         }
+    }
+
+    public void delete(Long id) {
+        cardRepo.deleteById(id);
     }
 }

@@ -29,19 +29,16 @@ public class Products {
     private String brand;
 
     @Enumerated(EnumType.STRING)
-    ProductType productType;
+    private ProductType productType;
 
     @Column(length = 50)
     private String productPrice;
 
-    @Column(length = 50)
-    private String productDiscount;
-
     @ManyToOne
-    @JoinColumn(name = "cart_id",referencedColumnName = "id")
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "categories_id", referencedColumnName = "id")
     private Categories categories;
 }
