@@ -24,7 +24,7 @@ public class CategoriesService {
         for (Categories p : categories) {
             CategoriesDto dto = new CategoriesDto();
             dto.setCategoryName(p.getCategoryName());
-            dto.setProductAmount(p.getProductAmount());
+            dto.setProducts(p.getProducts());
             dtos.add(dto);
         }
         return dtos;
@@ -36,7 +36,8 @@ public class CategoriesService {
         CategoriesDto dto = new CategoriesDto();
         if (categories.isPresent()) {
             dto.setCategoryName(categories.get().getCategoryName());
-            dto.setProductAmount(categories.get().getProductAmount());
+            dto.setProducts(categories.get().getProducts());
+
         } else {
             throw new Exception("Категории с такими данными не существует");
         }
@@ -50,8 +51,14 @@ public class CategoriesService {
     public Long createCategory(CategoriesDto dto){
         Categories categories = new Categories();
         categories.setCategoryName(dto.getCategoryName());
-        categories.setProductAmount(dto.getProductAmount());
         return categoriesRepo.save(categories).getId();
     }
 
+    public CategoriesDto update(Long id, CategoriesDto dto) throws Exception {
+        Categories categories = categoriesRepo.findById(id).orElseThrow(() ->
+                new Exception("Категории с такими не существует."));
+        categories.setCategoryName(dto.getCategoryName());
+        categoriesRepo.save(categories);
+        return categoriesMapper.mapToDto(categories);
+    }
 }

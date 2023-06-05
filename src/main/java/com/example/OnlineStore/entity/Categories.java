@@ -19,10 +19,6 @@ public class Categories {
     @Column(unique = true, length = 70)
     private String categoryName;
 
-    @Column(length = 70)
-    private Integer productAmount;
-
     @OneToMany(mappedBy = "categories")
     private List<Products> products;
-
 }

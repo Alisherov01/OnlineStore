@@ -41,4 +41,7 @@ public class Users {
     @OneToOne
     private Card card;
 
+    @OneToOne
+    private Payment payment;
+
 }

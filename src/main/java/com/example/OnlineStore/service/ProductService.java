@@ -2,6 +2,7 @@ package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.ProductDto;
 import com.example.OnlineStore.entity.Products;
+import com.example.OnlineStore.mappers.ProductMapper;
 import com.example.OnlineStore.repository.ProductRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ProductService {
     ProductRepo productRepo;
+
+    ProductMapper productMapper;
 
     public List<ProductDto> getAll() {
         List<ProductDto> dtos = new ArrayList<>();
@@ -71,5 +74,18 @@ public class ProductService {
         products.setProductType(dto.getProductType());
         products.setProductPrice(dto.getProductPrice());
         return productRepo.save(products).getId();
+    }
+
+    public ProductDto update(Long id, ProductDto dto) throws Exception{
+        Products products = productRepo.findById(id).orElseThrow(() ->
+                new Exception("Продукта с такими не существует. "));
+        products.setProductName(dto.getProductName());
+        products.setProductColor(dto.getProductColor());
+        products.setProductSize(dto.getProductSize());
+        products.setBrand(dto.getBrand());
+        products.setProductType(dto.getProductType());
+        products.setProductPrice(dto.getProductPrice());
+        productRepo.save(products);
+        return productMapper.mapToDto(products);
     }
 }

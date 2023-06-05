@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -20,7 +21,16 @@ public class Orders {
     @Column(length = 100)
     private String fullName;
 
+    @Column(length = 100)
+    private String address;
+
     @DateTimeFormat(pattern = "yyyy:MM:dd")
     private LocalDate orderTime = LocalDate.now();
 
+    @Column(length = 50)
+    private Integer orderSum;
+
+    @OneToMany(mappedBy = "orders")
+    private List<Products> products;
 }
+

@@ -29,5 +29,5 @@ public class DiscountProducts {
     private String productPrice;
 
     @Column(length = 50)
-    private String productDiscount;
+    private String sumDiscount;
 }

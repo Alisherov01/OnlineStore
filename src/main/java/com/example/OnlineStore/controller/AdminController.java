@@ -8,6 +8,7 @@ import com.example.OnlineStore.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class AdminController {
     }
 
 
-    //роуты дл категорий
+    //роуты для категорий
     @GetMapping("/api/categories")
     public ResponseMessage<List<CategoriesDto>> getAllCategories() {
         try {
@@ -76,7 +77,7 @@ public class AdminController {
                     "Категории успешно найдены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("CategoriesController:  getAll", e);
+            log.error("CategoriesController: getAll", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
@@ -102,6 +103,20 @@ public class AdminController {
         categoriesService.deleteCategory(id);
     }
 
+    @PutMapping("/api/categories/update")
+    public ResponseMessage<CategoriesDto> update(@RequestParam Long id, @RequestBody CategoriesDto dto) {
+        try {
+            return new ResponseMessage<>(
+                    categoriesService.update(id, dto),
+                    ResultCode.SUCCESS,
+                    "Категория успешно обновлена. ",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("error");
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
+    }
 
     //роуты для заказов
     @GetMapping("/api/order/getAll")
@@ -119,6 +134,20 @@ public class AdminController {
         }
     }
 
+    @PutMapping("/api/order/update")
+    public ResponseMessage<OrderDto> update(@RequestParam Long id, @RequestBody OrderDto dto) {
+        try {
+            return new ResponseMessage<>(
+                    orderService.update(id, dto),
+                    ResultCode.SUCCESS,
+                    "Заказ успешно обновлена. ",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("error");
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
+    }
 
     //роуты для оплаты
     @PutMapping("PUT/payment/{id}")
@@ -158,6 +187,21 @@ public class AdminController {
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("PaymentService: create ", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
+    }
+
+    @PutMapping("/api/product/update")
+    public ResponseMessage<ProductDto> update(@RequestParam Long id, @RequestBody ProductDto dto) {
+        try {
+            return new ResponseMessage<>(
+                    productService.update(id, dto),
+                    ResultCode.SUCCESS,
+                    "Заказ успешно обновлена. ",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("error");
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
