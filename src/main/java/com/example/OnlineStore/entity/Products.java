@@ -3,6 +3,8 @@ package com.example.OnlineStore.entity;
 
 import com.example.OnlineStore.enums.ProductType;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,11 +36,15 @@ public class Products {
     @Column(length = 50)
     private String productPrice;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    private Orders orders;
+
+    @JsonIgnore
+    @ManyToOne
     private Cart cart;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "categories_id", referencedColumnName = "id")
     private Categories categories;
 }

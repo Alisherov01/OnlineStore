@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/auth")
 @Slf4j
 public class UserController {
 
@@ -19,7 +18,7 @@ public class UserController {
 
     @PostMapping("/registration")
     public Long userRegistration(@RequestBody UserDto users) {
-        return usersService.createUser(users);
+        return usersService.registrationUser(users);
     }
 
     @GetMapping("/reset")

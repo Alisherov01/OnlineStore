@@ -21,14 +21,16 @@ public class Orders {
     @Column(length = 100)
     private String fullName;
 
+    @Column(length = 100)
+    private String address;
+
     @DateTimeFormat(pattern = "yyyy:MM:dd")
     private LocalDate orderTime = LocalDate.now();
 
+    @Column(length = 50)
     private Integer orderSum;
-    @OneToMany
-    private List<Products> productsList;
 
-    private String productPrice = productsList.get(1).getProductPrice();
-
-
+    @OneToMany(mappedBy = "orders")
+    private List<Products> products;
 }
+

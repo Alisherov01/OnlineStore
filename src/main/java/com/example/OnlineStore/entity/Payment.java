@@ -1,6 +1,7 @@
 package com.example.OnlineStore.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,8 @@ public class Payment {
 
     @Column(length = 50)
     private Integer orderSum;
+
+    @JsonIgnore
+    @OneToOne
+    private Users users;
 }

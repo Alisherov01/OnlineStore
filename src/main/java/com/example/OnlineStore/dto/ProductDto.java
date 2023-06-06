@@ -5,6 +5,8 @@ import com.example.OnlineStore.entity.Categories;
 import com.example.OnlineStore.enums.ProductType;
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
 public class ProductDto {
 
@@ -19,8 +21,6 @@ public class ProductDto {
     private ProductType productType;
 
     private String productPrice;
-
-    private Cart cart;
 
     private Categories categories;
 

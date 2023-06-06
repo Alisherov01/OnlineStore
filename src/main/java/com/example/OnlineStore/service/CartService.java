@@ -2,6 +2,7 @@ package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.CartDto;
 import com.example.OnlineStore.entity.Cart;
+import com.example.OnlineStore.entity.Products;
 import com.example.OnlineStore.mappers.CartMapper;
 import com.example.OnlineStore.repository.CartRepo;
 import lombok.AllArgsConstructor;
@@ -18,19 +19,13 @@ public class CartService {
     CartMapper cartMapper;
 
 
+
     public List<CartDto> getAll() {
         List<CartDto> dtos = new ArrayList<>();
         List<Cart> carts = cartRepo.findAll();
         for (Cart p : carts) {
             CartDto dto = new CartDto();
-            dto.setOrderPrice(p.getOrderPrice());
-            dto.setProductAmount(p.getProductAmount());
-            dto.setOrdersSum(p.getOrdersSum());
-            if (p.getOrderPrice() == 1) {
-                dto.setOrdersSum(p.getOrderPrice());
-            } else {
-                dto.setOrdersSum(p.getOrderPrice() * p.getProductAmount());
-            }
+            dto.setId(p.getId());
             dto.setProducts(p.getProducts());
             dtos.add(dto);
         }
@@ -41,8 +36,7 @@ public class CartService {
         Optional<Cart> carts = cartRepo.findById(id);
         CartDto dto = new CartDto();
         if (carts.isPresent()) {
-            dto.setOrdersSum(carts.get().getOrdersSum());
-            dto.setProductAmount(carts.get().getProductAmount());
+            dto.setId(carts.get().getId());
             dto.setProducts(carts.get().getProducts());
         } else {
             throw new Exception("Карзины с такими данными не существует");
@@ -51,11 +45,8 @@ public class CartService {
     }
 
     public Long saveInCart(CartDto dto) {
-
         Cart newCart = new Cart();
-        newCart.setOrderPrice(dto.getOrderPrice());
-        newCart.setProductAmount(dto.getProductAmount());
-
+        newCart.setProducts(dto.getProducts());
         newCart = cartRepo.save(newCart);
         return newCart.getId();
     }
@@ -68,21 +59,17 @@ public class CartService {
     public CartDto removeFromCart(Long id) throws Exception {
         Cart cart = cartRepo.findById(id).orElseThrow(() ->
                 new Exception("Карзины с такими данными не существует"));
-        ;
-        if (cart.getProductAmount() == 0) {
+        if (cart.getProducts() != null) {
             delete(id);
         } else {
-            cart.setProductAmount(cart.getProductAmount() - 1);
-            return cartMapper.mapToDto(cartRepo.save(cart));
+            return cartMapper.mapToDto(cart);
         }
         return null;
     }
 
     public Long create(CartDto dto) {
         Cart cart = new Cart();
-        cart.setOrderPrice(dto.getOrderPrice());
-        cart.setProducts(dto.getProducts());
-        cart.setOrdersSum(dto.getOrdersSum());
+        cart.setId(dto.getId());
         return cartRepo.save(cart).getId();
     }
 }

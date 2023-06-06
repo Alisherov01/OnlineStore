@@ -1,11 +1,15 @@
 package com.example.OnlineStore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -17,19 +21,20 @@ public class Card {
     private Long id;
 
     @Column(length = 80)
-    private String fullName;
+    private String cardName;
 
     @Column(unique = true, length = 16)
-    @Min(value = 16)
-    private String cartNumber;
+    @Digits(integer = 16,fraction = 0, message = "Нужно ввести 16-ти значный номер")
+    private Integer cartNumber;
 
     @Column(unique = true, length = 4)
-    @Min(value = 4)
-    private String CVVCode;
+    @Digits(integer = 4,fraction = 4, message = "Нужно ввести 4 числа")
+    private Integer CVVCode;
 
     @Column(length = 100)
     private Integer cardBalance;
 
+    @JsonIgnore
     @OneToOne
     private Users users;
 }

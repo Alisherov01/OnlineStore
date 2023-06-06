@@ -25,7 +25,7 @@ public class UsersService {
     private PasswordEncoder passwordEncoder;
     private UserMapper userMapper;
 
-    public Long createUser(UserDto dto){
+    public Long registrationUser(UserDto dto){
         Users users = new Users();
         users.setUserName((dto.getUserName()));
         users.setEmail((dto.getEmail()));
@@ -50,7 +50,7 @@ public class UsersService {
                 "\nДля сброса пароля введите токен " + resetToken;
 
         emailService.sendSimpleMessage(email, "Сброс пароля", emailText);
-        return emailText;
+        return "Проверьте свою почту";
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)

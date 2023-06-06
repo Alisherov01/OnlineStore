@@ -1,11 +1,13 @@
 package com.example.OnlineStore.dto;
 
+import com.example.OnlineStore.entity.Users;
 import lombok.Data;
 
 @Data
 public class CardDto {
-    private String fullName;
-    private String cartNumber;
-    private String CVVCode;
+    private Users users;
+    private String cardName;
+    private Integer cartNumber;
+    private Integer CVVCode;
     private Integer cardBalance;
 }

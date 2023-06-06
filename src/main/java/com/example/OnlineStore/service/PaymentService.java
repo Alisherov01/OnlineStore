@@ -7,6 +7,7 @@ import com.example.OnlineStore.repository.PaymentRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,7 @@ public class PaymentService {
             List<Payment> payments = paymentRepo.findAll();
             for(Payment p : payments) {
                 PaymentDto dto = new PaymentDto();
-                dto.setTime(p.getTime());
+                dto.setTime(LocalDate.now());
                 dto.setOrderSum(p.getOrderSum());
                 dtos.add(dto);
             }
@@ -33,7 +34,7 @@ public class PaymentService {
             Optional<Payment> payment = paymentRepo.findById(id);
             PaymentDto dto = new PaymentDto();
             if(payment.isPresent()) {
-                dto.setTime(payment.get().getTime());
+                dto.setTime(LocalDate.now());
                 dto.setOrderSum(payment.get().getOrderSum());
             } else {
                 throw new Exception("Платежа с такимим данными не существует.");
@@ -43,7 +44,7 @@ public class PaymentService {
 
         public Long create(PaymentDto dto) {
             Payment payment = new Payment();
-            payment.setTime(dto.getTime());
+            payment.setTime(LocalDate.now());
             payment.setOrderSum(dto.getOrderSum());
             return paymentRepo.save(payment).getId();
         }
@@ -51,7 +52,7 @@ public class PaymentService {
         public PaymentDto update(Long id, PaymentDto dto) throws Exception {
             Payment payment = paymentRepo.findById(id).orElseThrow(() ->
                     new Exception("Платежа с такимим данными не существует."));
-            payment.setTime(dto.getTime());
+            payment.setTime(LocalDate.now());
             payment.setOrderSum(dto.getOrderSum());
             return paymentMapper.mapToDto(paymentRepo.save(payment));
         }
