@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -22,5 +23,12 @@ public class Orders {
 
     @DateTimeFormat(pattern = "yyyy:MM:dd")
     private LocalDate orderTime = LocalDate.now();
+
+    private Integer orderSum;
+    @OneToMany
+    private List<Products> productsList;
+
+    private String productPrice = productsList.get(1).getProductPrice();
+
 
 }
