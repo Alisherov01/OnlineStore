@@ -3,6 +3,7 @@ package com.example.OnlineStore.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -27,10 +28,7 @@ public class Orders {
     @DateTimeFormat(pattern = "yyyy:MM:dd")
     private LocalDate orderTime = LocalDate.now();
 
-    @Column(length = 50)
-    private Integer orderSum;
-
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "orders")
     private List<Products> products;
 }
 

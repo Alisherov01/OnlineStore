@@ -30,6 +30,10 @@ public class AdminController {
     private final CartService cartService;
 
 
+
+
+
+
     //роуты для корзины
     @PostMapping("/api/create/cart")
     public ResponseMessage<Long> createCart(@RequestBody CartDto dto) {
@@ -65,6 +69,10 @@ public class AdminController {
     void deleteCart(@PathVariable Long id) {
         cartService.delete(id);
     }
+
+
+
+
 
 
     //роуты для категорий
@@ -103,8 +111,8 @@ public class AdminController {
         categoriesService.deleteCategory(id);
     }
 
-    @PutMapping("/api/categories/update")
-    public ResponseMessage<CategoriesDto> update(@RequestParam Long id, @RequestBody CategoriesDto dto) {
+    @PutMapping("/api/categories/update/{id}")
+    public ResponseMessage<CategoriesDto> update(@PathVariable Long id, @RequestBody CategoriesDto dto) {
         try {
             return new ResponseMessage<>(
                     categoriesService.update(id, dto),
@@ -118,9 +126,14 @@ public class AdminController {
         }
     }
 
+
+
+
+
+
     //роуты для заказов
     @GetMapping("/api/order/getAll")
-    public ResponseMessage<List<OrderDto>> getAllOOrders() {
+    public ResponseMessage<OrderBillDto> getAllOOrders() {
         try {
             return new ResponseMessage<>(
                     orderService.getAll(),
@@ -149,6 +162,11 @@ public class AdminController {
         }
     }
 
+
+
+
+
+
     //роуты для оплаты
     @PutMapping("PUT/payment/{id}")
     public ResponseMessage<PaymentDto> update(@PathVariable Long id, @RequestBody PaymentDto dto) {
@@ -169,6 +187,10 @@ public class AdminController {
     public void delete(@PathVariable Long id) {
         paymentService.delete(id);
     }
+
+
+
+
 
 
     //роут для продуктов
@@ -192,13 +214,13 @@ public class AdminController {
         }
     }
 
-    @PutMapping("/api/product/update")
-    public ResponseMessage<ProductDto> update(@RequestParam Long id, @RequestBody ProductDto dto) {
+    @PutMapping("/api/product/update/{id}")
+    public ResponseMessage<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto dto) {
         try {
             return new ResponseMessage<>(
                     productService.update(id, dto),
                     ResultCode.SUCCESS,
-                    "Заказ успешно обновлена. ",
+                    "Продукт успешно обновлен. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("error");
@@ -207,8 +229,12 @@ public class AdminController {
         }
     }
 
-    // роуты для юзеров
 
+
+
+
+
+    // роуты для юзеров
     @GetMapping("/api/getAllUsers")
     public ResponseMessage<List<UserDto>> getAllUsers() {
         try {

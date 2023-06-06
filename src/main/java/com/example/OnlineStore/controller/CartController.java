@@ -1,6 +1,7 @@
 package com.example.OnlineStore.controller;
 
 import com.example.OnlineStore.dto.CartDto;
+import com.example.OnlineStore.dto.ProductDto;
 import com.example.OnlineStore.entity.ResponseMessage;
 import com.example.OnlineStore.enums.ResultCode;
 import com.example.OnlineStore.service.CartService;
@@ -8,9 +9,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @Slf4j
+@RequestMapping("/auth")
 public class CartController {
     CartService cartService;
 
@@ -29,11 +33,11 @@ public class CartController {
         }
     }
 
-    @PostMapping("/api/cart/add")
-    public ResponseMessage<Long> addProductInCart(@RequestBody CartDto dto) {
+    @PostMapping("/api/cart/add/{productId}/{id}")
+    public ResponseMessage<CartDto> addProductInCart(@PathVariable Long productId, @PathVariable  Long id) {
         try {
             return new ResponseMessage<>(
-                    cartService.saveInCart(dto),
+                    cartService.saveInCart(productId,id),
                     ResultCode.SUCCESS,
                     "Продукт успешно добавлен в корзину. ",
                     ResultCode.SUCCESS.getHttpCode());
@@ -44,11 +48,11 @@ public class CartController {
         }
     }
 
-    @DeleteMapping("/api/cart/remove/{id}")
-    public ResponseMessage<CartDto> removeOrderFromCart(@PathVariable Long id) {
+    @DeleteMapping("/api/cart/remove/{productId}/{id}")
+    public ResponseMessage<CartDto> removeOrderFromCart(@PathVariable Long productId, @PathVariable  Long id) {
         try {
             return new ResponseMessage<>(
-                    cartService.removeFromCart(id),
+                    cartService.removeFromCart(productId,id),
                     ResultCode.SUCCESS,
                     "Продукт успешно удалён из корзины. ",
                     ResultCode.FAIL.getHttpCode());

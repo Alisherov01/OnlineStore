@@ -1,11 +1,10 @@
 package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.CardDto;
-import com.example.OnlineStore.entity.Card;
-import com.example.OnlineStore.entity.Cart;
-import com.example.OnlineStore.entity.Orders;
-import com.example.OnlineStore.entity.Users;
+import com.example.OnlineStore.dto.OrderBillDto;
+import com.example.OnlineStore.entity.*;
 import com.example.OnlineStore.mappers.CartMapper;
+import com.example.OnlineStore.mappers.OrderMapper;
 import com.example.OnlineStore.repository.CardRepo;
 import com.example.OnlineStore.repository.CartRepo;
 import com.example.OnlineStore.repository.OrderRepo;
@@ -14,6 +13,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +27,8 @@ public class CardService {
     CartMapper cartMapper;
     OrderRepo orderRepo;
 
+    OrderMapper orderMapper;
+
     public Long save(CardDto dto) {
         Card card = new Card();
         card.setCardName(dto.getCardName());
@@ -35,12 +39,17 @@ public class CardService {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public Integer payWithCard(String CVVCode, Long id) throws Exception {
-        Orders order = orderRepo.findById(id).orElseThrow(()
+    public BigDecimal payWithCard(String CVVCode, Long id) throws Exception {
+        Orders orders = orderRepo.findById(id).orElseThrow(()
                 -> new Exception("Нет заказа с такими днными."));
+
+        double orderSum = orders.getProducts().stream()
+                .map(Products::getProductPrice)
+                .mapToDouble(BigDecimal::doubleValue).sum();
+
         Card card = cardRepo.findCardByCVVCode(CVVCode);
-        if (order.getOrderSum() < card.getCardBalance()) {
-            Integer res = card.getCardBalance() - order.getOrderSum();
+        if (orderSum < card.getCardBalance().doubleValue()) {
+            BigDecimal res = card.getCardBalance().subtract(new BigDecimal(orderSum));
             card.setCardBalance(res);
             cardRepo.save(card);
             return card.getCardBalance();

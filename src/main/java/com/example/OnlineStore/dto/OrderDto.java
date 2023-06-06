@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.List;
-
 @Data
 public class OrderDto {
 
@@ -18,8 +17,6 @@ public class OrderDto {
     private String address;
 
     private LocalDate orderTime = LocalDate.now();
-
-    private Integer orderSum;
 
     private List<Products> products;
 }
