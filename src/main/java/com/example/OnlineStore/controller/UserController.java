@@ -17,8 +17,18 @@ public class UserController {
     private UsersService usersService;
 
     @PostMapping("/registration")
-    public Long userRegistration(@RequestBody UserDto users) {
-        return usersService.registrationUser(users);
+    public ResponseMessage<Long> userRegistration(@RequestBody UserDto users) {
+        try {
+            return new ResponseMessage<>(
+                    usersService.registrationUser(users),
+                    ResultCode.SUCCESS,
+                    "Вы успешно зарегистрированы. ",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch(Exception e) {
+            log.error("UserController: userRegistration", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
     }
 
     @GetMapping("/reset")
