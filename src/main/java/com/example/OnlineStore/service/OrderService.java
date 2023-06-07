@@ -1,61 +1,65 @@
 package com.example.OnlineStore.service;
 
+import com.example.OnlineStore.dto.OrderBillDto;
 import com.example.OnlineStore.dto.OrderDto;
-import com.example.OnlineStore.dto.ProductDto;
 import com.example.OnlineStore.entity.Orders;
+import com.example.OnlineStore.entity.Products;
 import com.example.OnlineStore.mappers.OrderMapper;
 import com.example.OnlineStore.repository.OrderRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class OrderService {
-    OrderRepo orderRepo;
-    OrderMapper orderMapper;
+    private final  OrderRepo orderRepo;
+    private final OrderMapper orderMapper;
 
-    public List<OrderDto> getAll() {
-        List<OrderDto> dtos = new ArrayList<>();
+    public OrderBillDto getAll() {
         List<Orders> orders = orderRepo.findAll();
-        for (Orders p : orders) {
-            OrderDto dto = new OrderDto();
-            dto.setOrderTime(p.getOrderTime());
-            dtos.add(dto);
+        List<OrderDto> orderDtoList = orders.stream().map(orderMapper::mapToDto).collect(Collectors.toList());
+        BigDecimal sum = BigDecimal.ZERO;
+        for (OrderDto orderDto : orderDtoList) {
+            for (Products products : orderDto.getProducts()) {
+                sum = sum.add(products.getProductPrice());
+            }
         }
-        return dtos;
+        OrderBillDto orderBillDto = new OrderBillDto();
+        orderBillDto.setProductDtoList(orderDtoList);
+        orderBillDto.setOrderSum(sum);
+        return orderBillDto;
     }
 
-    public OrderDto getById(Long id) throws Exception {
+    public OrderBillDto getById(Long id) throws Exception {
         Optional<Orders> orders = orderRepo.findById(id);
-        OrderDto dto = new OrderDto();
-        if (orders.isPresent()) {
-            dto.setFullName(orders.get().getFullName());
-            dto.setAddress(orders.get().getAddress());
-            dto.setOrderTime(LocalDate.now());
-            dto.setOrderSum(orders.get().getOrderSum());
-            dto.setProducts(orders.get().getProducts());
-        } else {
-            throw new Exception("Заказа с такими данными не существует");
+        List<OrderDto> orderDtoList = orders.stream().map(orderMapper::mapToDto).collect(Collectors.toList());
+        BigDecimal sum = BigDecimal.ZERO;
+        for (OrderDto orderDto : orderDtoList) {
+            for (Products products : orderDto.getProducts()) {
+                sum = sum.add(products.getProductPrice());
+            }
         }
-        return dto;
+        OrderBillDto orderBillDto = new OrderBillDto();
+        orderBillDto.setProductDtoList(orderDtoList);
+        orderBillDto.setOrderSum(sum);
+        return orderBillDto;
     }
 
     public Long save(OrderDto dto) {
         Orders orders = new Orders();
-        dto.setFullName(orders.getFullName());
-        dto.setAddress(orders.getAddress());
-        dto.setOrderTime(LocalDate.now());
-        dto.setOrderSum(orders.getOrderSum());
-        dto.setProducts(orders.getProducts());
+        orders.setFullName(dto.getFullName());
+        orders.setAddress(dto.getAddress());
+        orders.setOrderTime(LocalDate.now());
         return orderRepo.save(orders).getId();
     }
 
-    public void deleteOrder(Long id){
+    public void deleteOrder(Long id) {
         orderRepo.deleteById(id);
     }
 
@@ -65,7 +69,6 @@ public class OrderService {
         orders.setFullName(dto.getFullName());
         orders.setAddress(dto.getAddress());
         orders.setOrderTime(LocalDate.now());
-        orders.setOrderSum(dto.getOrderSum());
         orderRepo.save(orders);
         return orderMapper.mapToDto(orders);
     }

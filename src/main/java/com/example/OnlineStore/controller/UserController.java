@@ -2,7 +2,9 @@ package com.example.OnlineStore.controller;
 
 import com.example.OnlineStore.dto.UserDto;
 import com.example.OnlineStore.entity.ResponseMessage;
+import com.example.OnlineStore.entity.Users;
 import com.example.OnlineStore.enums.ResultCode;
+import com.example.OnlineStore.enums.UserRoles;
 import com.example.OnlineStore.service.UsersService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,7 @@ public class UserController {
             return new ResponseMessage<>(
                     usersService.registrationUser(users),
                     ResultCode.SUCCESS,
-                    "Вы успешно зарегистрированы. ",
+                    "Вы успешно зарегестрированы. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch(Exception e) {
             log.error("UserController: userRegistration", e);
@@ -30,7 +32,6 @@ public class UserController {
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
     }
-
     @GetMapping("/reset")
     public String resetPassword(@RequestParam("email") String email) throws Exception {
         return usersService.resetPassword(email);

@@ -50,7 +50,7 @@ public class UsersService {
                 "\nДля сброса пароля введите токен " + resetToken;
 
         emailService.sendSimpleMessage(email, "Сброс пароля", emailText);
-        return "Проверьте свою почту";
+        return "Проверьте свою почту)";
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)

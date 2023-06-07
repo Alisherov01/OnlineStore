@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @AllArgsConstructor
 @Slf4j
@@ -48,7 +50,7 @@ public class PaymentController {
     }
 
     @PostMapping("/payment/card")
-    public ResponseMessage<Integer> payWithCard(@RequestParam String CVVCode, @RequestParam Long id) {
+    public ResponseMessage<BigDecimal> payWithCard(@RequestParam String CVVCode, @RequestParam Long id) {
         try {
             return new ResponseMessage<>(
                     cardService.payWithCard(CVVCode, id),

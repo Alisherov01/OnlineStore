@@ -39,7 +39,7 @@ public class CategoriesController {
         }
     }
 
-    @GetMapping("/api/categories/{id}/product")
+    @GetMapping("/api/product/categories/{id}")
     public ResponseMessage<List<ProductDto>> getProductsByCategoryId(@PathVariable Long id){
         try {
             return new ResponseMessage<>(

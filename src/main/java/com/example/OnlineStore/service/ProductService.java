@@ -33,7 +33,6 @@ public class ProductService {
             dto.setBrand(products.get().getBrand());
             dto.setProductType(products.get().getProductType());
             dto.setProductPrice(products.get().getProductPrice());
-            dto.setCategories(products.get().getCategories());
         } else {
             throw new Exception("Товара с такими данными не существует");
         }

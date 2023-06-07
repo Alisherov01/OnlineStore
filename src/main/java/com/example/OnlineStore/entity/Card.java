@@ -10,6 +10,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -32,7 +33,7 @@ public class Card {
     private Integer CVVCode;
 
     @Column(length = 100)
-    private Integer cardBalance;
+    private BigDecimal cardBalance;
 
     @JsonIgnore
     @OneToOne

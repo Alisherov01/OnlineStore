@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,7 +36,7 @@ public class Products {
     private ProductType productType;
 
     @Column(length = 50)
-    private String productPrice;
+    private BigDecimal productPrice;
 
     @JsonIgnore
     @ManyToOne

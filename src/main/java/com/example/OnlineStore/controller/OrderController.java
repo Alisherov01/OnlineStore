@@ -1,5 +1,6 @@
 package com.example.OnlineStore.controller;
 
+import com.example.OnlineStore.dto.OrderBillDto;
 import com.example.OnlineStore.dto.OrderDto;
 import com.example.OnlineStore.entity.ResponseMessage;
 import com.example.OnlineStore.enums.ResultCode;
@@ -18,7 +19,7 @@ public class OrderController {
     OrderService orderService;
 
     @GetMapping("/api/order/{id}")
-    public ResponseMessage<OrderDto> getById(@PathVariable Long id) {
+    public ResponseMessage<OrderBillDto> getById(@PathVariable Long id) {
         try{
             return new ResponseMessage<>(
                     orderService.getById(id),
