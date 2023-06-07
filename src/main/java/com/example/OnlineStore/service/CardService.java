@@ -1,21 +1,18 @@
 package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.CardDto;
-import com.example.OnlineStore.dto.OrderBillDto;
 import com.example.OnlineStore.entity.*;
 import com.example.OnlineStore.mappers.CartMapper;
 import com.example.OnlineStore.mappers.OrderMapper;
 import com.example.OnlineStore.repository.CardRepo;
 import com.example.OnlineStore.repository.CartRepo;
 import com.example.OnlineStore.repository.OrderRepo;
-import com.example.OnlineStore.repository.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -39,8 +36,8 @@ public class CardService {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public BigDecimal payWithCard(String CVVCode, Long id) throws Exception {
-        Orders orders = orderRepo.findById(id).orElseThrow(()
+    public BigDecimal payWithCard(Integer CVVCode, Long orderId) throws Exception {
+        Orders orders = orderRepo.findById(orderId).orElseThrow(()
                 -> new Exception("Нет заказа с такими днными."));
 
         double orderSum = orders.getProducts().stream()
@@ -58,7 +55,8 @@ public class CardService {
         }
     }
 
-    public void delete(Long id) {
+    public String delete(Long id) {
         cardRepo.deleteById(id);
+        return "Карта усрешно удалена. ";
     }
 }

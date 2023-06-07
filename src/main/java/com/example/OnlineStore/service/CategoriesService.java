@@ -44,10 +44,10 @@ public class CategoriesService {
         return dto;
     }
 
-    public void deleteCategory(Long id){
+    public String deleteCategory(Long id) {
         categoriesRepo.deleteById(id);
+        return "Категория успешно удалена. ";
     }
-
     public Long createCategory(CategoriesDto dto){
         Categories categories = new Categories();
         categories.setCategoryName(dto.getCategoryName());

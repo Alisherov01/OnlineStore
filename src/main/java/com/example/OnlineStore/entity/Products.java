@@ -2,13 +2,12 @@ package com.example.OnlineStore.entity;
 
 
 import com.example.OnlineStore.enums.ProductType;
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity

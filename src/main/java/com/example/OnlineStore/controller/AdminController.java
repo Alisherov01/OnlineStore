@@ -8,7 +8,6 @@ import com.example.OnlineStore.service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class AdminController {
                     "Карзина успешно создана. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("PaymentService: create ", e);
+            log.error("AdminController: create ", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
@@ -59,15 +58,24 @@ public class AdminController {
                     "Корзина успешно найдена. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("CartController: getAll ", e);
+            log.error("AdminController: getAll ", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
     }
 
     @DeleteMapping("/api/removeCart/{id}")
-    void deleteCart(@PathVariable Long id) {
-        cartService.delete(id);
+    ResponseMessage<String> deleteCart(@PathVariable Long id) {
+        try {
+            return new ResponseMessage<>(
+                    cartService.delete(id),
+                    ResultCode.SUCCESS,
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("AdminController: deleteCart ", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
     }
 
 
@@ -76,21 +84,6 @@ public class AdminController {
 
 
     //роуты для категорий
-    @GetMapping("/api/categories")
-    public ResponseMessage<List<CategoriesDto>> getAllCategories() {
-        try {
-            return new ResponseMessage<>(
-                    categoriesService.getAll(),
-                    ResultCode.SUCCESS,
-                    "Категории успешно найдены. ",
-                    ResultCode.SUCCESS.getHttpCode());
-        } catch (Exception e) {
-            log.error("CategoriesController: getAll", e);
-            return new ResponseMessage<>(
-                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
-        }
-    }
-
     @PostMapping("/api/create/category")
     public ResponseMessage<Long> createCategory(@RequestBody CategoriesDto dto) {
         try {
@@ -100,15 +93,24 @@ public class AdminController {
                     "Категория успешно создана. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("PaymentService: create ", e);
+            log.error("AdminController: create ", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
     }
 
     @DeleteMapping("/api/removeCategory/{id}")
-    void deleteCategory(@PathVariable Long id) {
-        categoriesService.deleteCategory(id);
+    public ResponseMessage<String> deleteCategory(@PathVariable Long id) {
+        try {
+           return new ResponseMessage<>(
+                   categoriesService.deleteCategory(id),
+                   ResultCode.SUCCESS,
+                   ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("AdminController: deleteCategory", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
     }
 
     @PutMapping("/api/categories/update/{id}")
@@ -120,7 +122,7 @@ public class AdminController {
                     "Категория успешно обновлена. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("error");
+            log.error("AdminController: update", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
@@ -133,7 +135,7 @@ public class AdminController {
 
     //роуты для заказов
     @GetMapping("/api/order/getAll")
-    public ResponseMessage<OrderBillDto> getAllOOrders() {
+    public ResponseMessage<OrderBillDto> getAllOrders() {
         try {
             return new ResponseMessage<>(
                     orderService.getAll(),
@@ -141,7 +143,7 @@ public class AdminController {
                     "Заказы успешно найдены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("OrderController: getById ", e);
+            log.error("AdminController: getAllOrders ", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
@@ -156,7 +158,7 @@ public class AdminController {
                     "Заказ успешно обновлена. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("error");
+            log.error("AdminController: update", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
@@ -177,15 +179,24 @@ public class AdminController {
                     "Оплата успешно обнавлена. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("PaymentService: update ", e);
+            log.error("AdminController: update ", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
     }
 
     @DeleteMapping("DELETE/payment/{id}")
-    public void delete(@PathVariable Long id) {
-        paymentService.delete(id);
+    public ResponseMessage<String> delete(@PathVariable Long id) {
+        try {
+            return new ResponseMessage<>(
+                    paymentService.delete(id),
+                    ResultCode.SUCCESS,
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("AdminController: delete ", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
     }
 
 
@@ -195,20 +206,29 @@ public class AdminController {
 
     //роут для продуктов
     @DeleteMapping("/api/products/remove/{id}")
-    public void deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+    public ResponseMessage<String> deleteProduct(@PathVariable Long id) {
+        try {
+            return new ResponseMessage<>(
+                    productService.deleteProduct(id),
+                    ResultCode.SUCCESS,
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("AdminController: deleteProduct ", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
     }
 
     @PostMapping("/api/create/product")
-    public ResponseMessage<Long> createProduct(@RequestBody ProductDto dto) {
+    public ResponseMessage<Long> createProduct(@RequestBody ProductDto dto, @RequestParam Long categoryId) {
         try {
             return new ResponseMessage<>(
-                    productService.createProduct(dto),
+                    productService.createProduct(dto, categoryId),
                     ResultCode.SUCCESS,
                     "Продукт успешно создан. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("PaymentService: create ", e);
+            log.error("AdminController: create ", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
@@ -223,7 +243,7 @@ public class AdminController {
                     "Продукт успешно обновлен. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("error");
+            log.error("AdminController: update", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
@@ -244,7 +264,7 @@ public class AdminController {
                     "Пользователи успешно найдены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("ProductController: getAll ", e);
+            log.error("AdminController: getAll ", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
@@ -259,7 +279,7 @@ public class AdminController {
                     "Пользователь успешно найден. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("CategoriesController:  getById", e);
+            log.error("AdminController:  getById", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }
@@ -267,8 +287,16 @@ public class AdminController {
 
 
     @DeleteMapping("/api/user/remove/{id}")
-    public void deleteUsers(@PathVariable Long id) {
-        usersService.deleteUsers(id);
+    public ResponseMessage<String> deleteUsers(@PathVariable Long id) {
+        try {
+            return new ResponseMessage<>(
+                    usersService.deleteUsers(id),
+                    ResultCode.SUCCESS,
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("AdminController:  deleteUsers", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
     }
-
 }

@@ -39,6 +39,21 @@ public class CategoriesController {
         }
     }
 
+    @GetMapping("/api/categories")
+    public ResponseMessage<List<CategoriesDto>> getAllCategories() {
+        try {
+            return new ResponseMessage<>(
+                    categoriesService.getAll(),
+                    ResultCode.SUCCESS,
+                    "Категории успешно найдены. ",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("CategoriesController: getAll", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
+    }
+
     @GetMapping("/api/product/categories/{id}")
     public ResponseMessage<List<ProductDto>> getProductsByCategoryId(@PathVariable Long id){
         try {

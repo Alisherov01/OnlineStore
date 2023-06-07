@@ -57,7 +57,8 @@ public class PaymentService {
             return paymentMapper.mapToDto(paymentRepo.save(payment));
         }
 
-        public void delete(Long id) {
+        public String delete(Long id) {
             paymentRepo.deleteById(id);
+            return "Оплата успешно отменена. ";
         }
     }

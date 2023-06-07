@@ -1,7 +1,6 @@
 package com.example.OnlineStore.dto;
 
 import com.example.OnlineStore.entity.Products;
-import com.example.OnlineStore.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

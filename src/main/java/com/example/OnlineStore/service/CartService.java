@@ -1,12 +1,9 @@
 package com.example.OnlineStore.service;
 
-import com.example.OnlineStore.dto.CardDto;
 import com.example.OnlineStore.dto.CartDto;
-import com.example.OnlineStore.dto.ProductDto;
 import com.example.OnlineStore.entity.Cart;
 import com.example.OnlineStore.entity.Products;
 import com.example.OnlineStore.mappers.CartMapper;
-import com.example.OnlineStore.mappers.ProductMapper;
 import com.example.OnlineStore.repository.CartRepo;
 import com.example.OnlineStore.repository.ProductRepo;
 import lombok.AllArgsConstructor;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -50,15 +46,17 @@ public class CartService {
         return dto;
     }
 
-
     public CartDto saveInCart(long productId, long cartId) throws Exception {
-        Products products = productRepository.findById(productId).orElseThrow(() -> new Exception("Продукта с такими данными нет"));
-        Cart cart = cartRepo.findById(cartId).orElseThrow(() -> new Exception("Карзины с такими данными не существует"));
+        Products products = productRepository.findById(productId).orElseThrow(()
+                -> new Exception("Продукта с такими данными нет"));
+        Cart cart = cartRepo.findById(cartId).orElseThrow(()
+                -> new Exception("Карзины с такими данными не существует"));
         List<Products> productsList = cart.getProducts();
         productsList.add(products);
         var saveCart= cartRepo.save(cart);
         return convertToDto(saveCart);
     }
+
     public CartDto convertToDto(Cart cart) {
         CartDto cartDto = new CartDto();
         cartDto.setId(cart.getId());
@@ -68,14 +66,17 @@ public class CartService {
 
 
 
-    public void delete(Long id) {
+    public String delete(Long id) {
         cartRepo.deleteById(id);
+        return "Карзина усрешно удалена. ";
     }
 
 
     public CartDto removeFromCart(long productId, long cartId) throws Exception {
-        Products products = productRepository.findById(productId).orElseThrow(() -> new Exception("Продукта с такими данными нет"));
-        Cart cart = cartRepo.findById(cartId).orElseThrow(() -> new Exception("Карзины с такими данными не существует"));
+        Products products = productRepository.findById(productId).orElseThrow(()
+                -> new Exception("Продукта с такими данными нет"));
+        Cart cart = cartRepo.findById(cartId).orElseThrow(()
+                -> new Exception("Карзины с такими данными не существует"));
         List<Products> productsList = cart.getProducts();
         productsList.remove(products);
         cartRepo.save(cart);

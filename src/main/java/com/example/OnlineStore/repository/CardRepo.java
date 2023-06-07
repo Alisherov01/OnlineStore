@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface CardRepo extends JpaRepository<Card, Long> {
     @Query(value = "select * from card where card.cvvcode = ?" ,nativeQuery = true)
-    Card findCardByCVVCode(String CVVCode);
+    Card findCardByCVVCode(Integer CVVCode);
 }

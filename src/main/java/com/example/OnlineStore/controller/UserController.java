@@ -2,9 +2,7 @@ package com.example.OnlineStore.controller;
 
 import com.example.OnlineStore.dto.UserDto;
 import com.example.OnlineStore.entity.ResponseMessage;
-import com.example.OnlineStore.entity.Users;
 import com.example.OnlineStore.enums.ResultCode;
-import com.example.OnlineStore.enums.UserRoles;
 import com.example.OnlineStore.service.UsersService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +54,7 @@ public class UserController {
                     "Настройки успешно обновлены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
-            log.error("UserService: update ", e);
+            log.error("UserController: update ", e);
             return new ResponseMessage<>(
                     null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
         }

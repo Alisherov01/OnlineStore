@@ -50,7 +50,7 @@ public class PaymentController {
     }
 
     @PostMapping("/payment/card")
-    public ResponseMessage<BigDecimal> payWithCard(@RequestParam String CVVCode, @RequestParam Long id) {
+    public ResponseMessage<BigDecimal> payWithCard(@RequestParam Integer CVVCode, @RequestParam Long id) {
         try {
             return new ResponseMessage<>(
                     cardService.payWithCard(CVVCode, id),
@@ -80,7 +80,16 @@ public class PaymentController {
     }
 
     @DeleteMapping("/api/removeCard/{id}")
-    void deleteCategory(@PathVariable Long id) {
-        cardService.delete(id);
+    public ResponseMessage<String> deleteCard(@PathVariable Long id) {
+        try {
+            return new ResponseMessage<>(
+                    cardService.delete(id),
+                    ResultCode.SUCCESS,
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("PaymentService:deleteCategory ");
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
     }
 }

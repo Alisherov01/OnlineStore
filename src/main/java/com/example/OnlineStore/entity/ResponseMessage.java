@@ -30,11 +30,19 @@ public class ResponseMessage<T> {
         this.details = details;
     }
 
+
+
     public ResponseMessage(T result, ResultCode resultCode, String details, Integer detailCode) {
         this.result = result;
         this.resultCode = resultCode;
         this.details = details;
         this.detailCode = detailCode;
+    }
+
+        public ResponseMessage(T result, ResultCode resultCode, Integer detailCode) {
+            this.result = result;
+            this.resultCode = resultCode;
+            this.detailCode = detailCode;
     }
 
     @Override

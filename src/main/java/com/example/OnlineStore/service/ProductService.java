@@ -1,8 +1,10 @@
 package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.ProductDto;
+import com.example.OnlineStore.entity.Categories;
 import com.example.OnlineStore.entity.Products;
 import com.example.OnlineStore.mappers.ProductMapper;
+import com.example.OnlineStore.repository.CategoriesRepo;
 import com.example.OnlineStore.repository.ProductRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class ProductService {
     ProductRepo productRepo;
     ProductMapper productMapper;
+    CategoriesRepo categoriesRepo;
 
     public List<ProductDto> getAll() {
         List<ProductDto> dtos = new ArrayList<>();
@@ -39,8 +42,9 @@ public class ProductService {
         return dto;
     }
 
-    public void deleteProduct(Long id) {
+    public String deleteProduct(Long id) {
         productRepo.deleteById(id);
+        return "Продукт усрешно удалён из корзины. ";
     }
 
     public List<ProductDto> getProductsByCategoryId(Long categoriesId) {
@@ -63,7 +67,7 @@ public class ProductService {
         return dtos;
     }
 
-    public Long createProduct(ProductDto dto){
+    public Long createProduct(ProductDto dto, Long id) throws Exception {
         Products products = new Products();
         products.setProductName(dto.getProductName());
         products.setProductColor(dto.getProductColor());
@@ -71,6 +75,9 @@ public class ProductService {
         products.setBrand(dto.getBrand());
         products.setProductType(dto.getProductType());
         products.setProductPrice(dto.getProductPrice());
+
+        Categories categories = categoriesRepo.findById(id).orElseThrow(() -> new Exception("wqqqwq"));
+        products.setCategories(categories);
         return productRepo.save(products).getId();
     }
 

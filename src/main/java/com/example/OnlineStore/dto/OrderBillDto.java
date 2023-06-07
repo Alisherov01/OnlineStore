@@ -7,6 +7,6 @@ import java.util.List;
 
 @Data
 public class OrderBillDto {
-private List<OrderDto> productDtoList;
+private List<OrderDto> orderDtoList;
 private BigDecimal orderSum;
 }

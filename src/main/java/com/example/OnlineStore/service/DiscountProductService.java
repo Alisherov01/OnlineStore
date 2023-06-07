@@ -1,9 +1,7 @@
 package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.DiscountProductDto;
-import com.example.OnlineStore.dto.PaymentDto;
 import com.example.OnlineStore.entity.DiscountProducts;
-import com.example.OnlineStore.entity.Payment;
 import com.example.OnlineStore.repository.DiscountProductRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

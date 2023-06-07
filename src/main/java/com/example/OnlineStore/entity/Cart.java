@@ -3,7 +3,6 @@ package com.example.OnlineStore.entity;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +19,5 @@ public class Cart {
     private Long id;
 
     @ManyToMany
-    private List<Products> products;}
+    private List<Products> products;
+}

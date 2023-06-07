@@ -1,15 +1,12 @@
 package com.example.OnlineStore.controller;
 
 import com.example.OnlineStore.dto.CartDto;
-import com.example.OnlineStore.dto.ProductDto;
 import com.example.OnlineStore.entity.ResponseMessage;
 import com.example.OnlineStore.enums.ResultCode;
 import com.example.OnlineStore.service.CartService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -55,7 +52,7 @@ public class CartController {
                     cartService.removeFromCart(productId,id),
                     ResultCode.SUCCESS,
                     "Продукт успешно удалён из корзины. ",
-                    ResultCode.FAIL.getHttpCode());
+                    ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("CartController: removeOrderFromCart ", e);
             return new ResponseMessage<>(

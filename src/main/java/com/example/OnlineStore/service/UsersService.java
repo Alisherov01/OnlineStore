@@ -99,8 +99,9 @@ public class UsersService {
         return dto;
     }
 
-    public void deleteUsers(Long id) {
+    public String deleteUsers(Long id) {
         userRepo.deleteById(id);
+        return "Пользователь успешно удалён. ";
     }
 
     public UserDto update(Long id, UserDto dto) throws Exception {
