@@ -17,7 +17,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class DiscountService {
     private final DiscountRepo discountRepo;
-    private final DiscountMapper discountMapper;
 
     public List<DiscountDto> getAll() {
         List<DiscountDto> dtos = new ArrayList<>();
@@ -65,5 +64,4 @@ public class DiscountService {
     public void delete(Long id) {
         discountRepo.deleteById(id);
     }
-
 }

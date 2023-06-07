@@ -1,6 +1,5 @@
 package com.example.OnlineStore.controller;
 
-import com.example.OnlineStore.dto.CartDto;
 import com.example.OnlineStore.dto.DiscountDto;
 import com.example.OnlineStore.entity.ResponseMessage;
 import com.example.OnlineStore.enums.ResultCode;

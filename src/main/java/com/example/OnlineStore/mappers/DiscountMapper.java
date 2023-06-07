@@ -17,8 +17,4 @@ public class DiscountMapper {
     public DiscountDto mapToDto(DiscountProducts discountProducts) {
         return modelMapper.map(discountProducts, DiscountDto.class);
     }
-
-    public DiscountProducts mapToModel(DiscountDto dto) {
-        return modelMapper.map(dto, DiscountProducts.class);
-    }
 }

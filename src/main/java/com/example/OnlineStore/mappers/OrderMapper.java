@@ -17,8 +17,4 @@ public class OrderMapper {
     public OrderDto mapToDto(Orders order) {
         return modelMapper.map(order, OrderDto.class);
     }
-
-    public Orders mapToModel(OrderDto dto) {
-        return modelMapper.map(dto, Orders.class);
-    }
 }
