@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class UserController {
 
-    private UsersService usersService;
+    private final UsersService usersService;
 
     @PostMapping("/registration")
     public ResponseMessage<Long> userRegistration(@RequestBody UserDto users) {

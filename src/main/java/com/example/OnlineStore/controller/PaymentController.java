@@ -16,8 +16,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Slf4j
 public class PaymentController {
-    PaymentService service;
-    CardService cardService;
+    private final PaymentService service;
+    private final CardService cardService;
 
     @PostMapping("POST/payment")
     public ResponseMessage<Long> create(@RequestBody PaymentDto dto) {

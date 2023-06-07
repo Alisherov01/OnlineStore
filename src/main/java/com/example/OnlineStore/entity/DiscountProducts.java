@@ -26,8 +26,11 @@ public class DiscountProducts {
     ProductType productType;
 
     @Column(length = 50)
-    private String productPrice;
+    private Integer productPrice;
 
     @Column(length = 50)
-    private String sumDiscount;
+    private Integer sumDiscount;
+
+    @Column(length = 50)
+    private Integer productWithDiscount;
 }

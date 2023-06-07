@@ -70,7 +70,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private String getJwtToken(String authorizationHeader) {
         if(isNull(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")) {
-            throw new RuntimeException("Invalid Auhorization Header");
+            throw new RuntimeException("Invalid Authorization Header");
         }
         return authorizationHeader.replaceFirst("Bearer ", "").trim();
     }

@@ -15,47 +15,47 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class PaymentService {
-        PaymentRepo paymentRepo;
-        PaymentMapper paymentMapper;
+    private final PaymentRepo paymentRepo;
+    private final PaymentMapper paymentMapper;
 
-        public List<PaymentDto> getAll() {
-            List<PaymentDto> dtos = new ArrayList<>();
-            List<Payment> payments = paymentRepo.findAll();
-            for(Payment p : payments) {
-                PaymentDto dto = new PaymentDto();
-                dto.setTime(LocalDate.now());
-                dto.setOrderSum(p.getOrderSum());
-                dtos.add(dto);
-            }
-            return dtos;
-        }
-
-        public PaymentDto getById(Long id) throws Exception {
-            Optional<Payment> payment = paymentRepo.findById(id);
+    public List<PaymentDto> getAll() {
+        List<PaymentDto> dtos = new ArrayList<>();
+        List<Payment> payments = paymentRepo.findAll();
+        for (Payment p : payments) {
             PaymentDto dto = new PaymentDto();
-            if(payment.isPresent()) {
-                dto.setTime(LocalDate.now());
-                dto.setOrderSum(payment.get().getOrderSum());
-            } else {
-                throw new Exception("Платежа с такимим данными не существует.");
-            }
-            return dto;
+            dto.setUsers(p.getUsers());
+            dto.setTime(LocalDate.now());
+            dtos.add(dto);
         }
+        return dtos;
+    }
 
-        public Long create(PaymentDto dto) {
-            Payment payment = new Payment();
-            payment.setTime(LocalDate.now());
-            payment.setOrderSum(dto.getOrderSum());
-            return paymentRepo.save(payment).getId();
+    public PaymentDto getById(Long id) throws Exception {
+        Optional<Payment> payment = paymentRepo.findById(id);
+        PaymentDto dto = new PaymentDto();
+        if (payment.isPresent()) {
+            dto.setUsers(payment.get().getUsers());
+            dto.setTime(LocalDate.now());
+        } else {
+            throw new Exception("Платежа с такимим данными не существует.");
         }
+        return dto;
+    }
 
-        public PaymentDto update(Long id, PaymentDto dto) throws Exception {
-            Payment payment = paymentRepo.findById(id).orElseThrow(() ->
-                    new Exception("Платежа с такимим данными не существует."));
-            payment.setTime(LocalDate.now());
-            payment.setOrderSum(dto.getOrderSum());
-            return paymentMapper.mapToDto(paymentRepo.save(payment));
-        }
+    public Long create(PaymentDto dto) {
+        Payment payment = new Payment();
+        payment.setUsers(dto.getUsers());
+        payment.setTime(LocalDate.now());
+        return paymentRepo.save(payment).getId();
+    }
+
+    public PaymentDto update(Long id, PaymentDto dto) throws Exception {
+        Payment payment = paymentRepo.findById(id).orElseThrow(() ->
+                new Exception("Платежа с такимим данными не существует."));
+        payment.setUsers(dto.getUsers());
+        payment.setTime(LocalDate.now());
+        return paymentMapper.mapToDto(paymentRepo.save(payment));
+    }
 
         public String delete(Long id) {
             paymentRepo.deleteById(id);

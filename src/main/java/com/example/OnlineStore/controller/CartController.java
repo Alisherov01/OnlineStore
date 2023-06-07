@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequestMapping("/auth")
 public class CartController {
-    CartService cartService;
+    private final CartService cartService;
 
     @GetMapping("/api/cart/{id}")
     public ResponseMessage<CartDto> getById(@PathVariable Long id){
@@ -36,7 +36,7 @@ public class CartController {
             return new ResponseMessage<>(
                     cartService.saveInCart(productId,id),
                     ResultCode.SUCCESS,
-                    "Продукт успешно добавлен в корзину. ",
+                    "Одежда успешно добавлен в корзину. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("CartController: addProductInCart ", e);
@@ -51,7 +51,7 @@ public class CartController {
             return new ResponseMessage<>(
                     cartService.removeFromCart(productId,id),
                     ResultCode.SUCCESS,
-                    "Продукт успешно удалён из корзины. ",
+                    "Одежда успешно удалёна из корзины. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("CartController: removeOrderFromCart ", e);

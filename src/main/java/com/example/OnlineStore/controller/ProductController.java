@@ -16,8 +16,7 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/auth")
 public class ProductController {
-    ProductService service;
-    ProductMapper mapper;
+    private final ProductService service;
 
     @GetMapping("/api/products")
     public ResponseMessage<List<ProductDto>> getAll() {
@@ -25,7 +24,7 @@ public class ProductController {
             return new ResponseMessage<>(
                     service.getAll(),
                     ResultCode.SUCCESS,
-                    "Продукты успешно найдены. ",
+                    "Одежды успешно найдены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("ProductController: getAll ", e);
@@ -40,7 +39,7 @@ public class ProductController {
             return new ResponseMessage<>(
                     service.getById(id),
                     ResultCode.SUCCESS,
-                    "Продукт успешно найден. ",
+                    "Одежда успешно найдена. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("ProductController: getById ", e);

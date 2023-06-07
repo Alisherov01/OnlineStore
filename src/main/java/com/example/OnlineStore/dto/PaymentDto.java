@@ -8,11 +8,8 @@ import java.time.LocalDate;
 @Data
 public class PaymentDto {
 
-    private Long id;
-
     private Users users;
 
     private LocalDate time = LocalDate.now();
 
-    private Integer orderSum;
 }

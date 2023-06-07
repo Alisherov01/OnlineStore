@@ -40,9 +40,10 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui/**", "/v3/**").permitAll() // Allowing access to Swagger UI and API documentation
+                .antMatchers("/swagger-ui/**", "/v3/**").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/authenticate").permitAll()
+                .antMatchers("/auth/").permitAll()
                 .antMatchers("/admin/").hasRole("ADMIN")
                 .antMatchers("/auth/").authenticated()
                 .anyRequest().authenticated()

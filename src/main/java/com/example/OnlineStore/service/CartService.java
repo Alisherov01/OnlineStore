@@ -16,10 +16,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class CartService {
-    CartRepo cartRepo;
+    private final CartRepo cartRepo;
     private final ProductRepo productRepository;
-
-    CartMapper cartMapper;
+    private final CartMapper cartMapper;
 
 
     public List<CartDto> getAll() {

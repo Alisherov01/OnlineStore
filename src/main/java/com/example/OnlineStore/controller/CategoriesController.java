@@ -21,8 +21,8 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/auth")
 public class CategoriesController {
-    CategoriesService categoriesService;
-    ProductService productService;
+    private final CategoriesService categoriesService;
+    private final ProductService productService;
 
     @GetMapping("/api/categories/{id}")
     public ResponseMessage<CategoriesDto> getById(@PathVariable Long id) {
@@ -60,7 +60,7 @@ public class CategoriesController {
             return new ResponseMessage<>(
                     productService.getProductsByCategoryId(id),
                     ResultCode.SUCCESS,
-                    "Продукт успешно найден. ",
+                    "Одежда успешно найдена. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("CategoriesController: getProductsByCategoryId ", e);

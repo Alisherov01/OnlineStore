@@ -11,7 +11,7 @@ import java.util.Date;
 @Component
 public class JsonWebTokenUtil {
         private static String SECRET = "SECRET";
-        private static final long VALIDITY = 10 * 3600; //10 HOURS
+        private static final long VALIDITY = 10 * 3600;
 
         public static String generateToken(String userName) {
             return Jwts.builder()
@@ -37,7 +37,7 @@ public class JsonWebTokenUtil {
         private static Claims verifyToken(String token) {
             return Jwts.parser()
                     .setSigningKey(SECRET)
-                    .parseClaimsJws(token) //If this goes through, we can trust the JWT
+                    .parseClaimsJws(token)
                     .getBody();
         }
     }

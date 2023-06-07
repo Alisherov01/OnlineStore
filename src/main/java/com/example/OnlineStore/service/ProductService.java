@@ -16,9 +16,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ProductService {
-    ProductRepo productRepo;
-    ProductMapper productMapper;
-    CategoriesRepo categoriesRepo;
+    private final ProductRepo productRepo;
+    private final ProductMapper productMapper;
+    private final CategoriesRepo categoriesRepo;
 
     public List<ProductDto> getAll() {
         List<ProductDto> dtos = new ArrayList<>();
@@ -81,7 +81,7 @@ public class ProductService {
         return productRepo.save(products).getId();
     }
 
-    public ProductDto update(Long id, ProductDto dto) throws Exception{
+    public ProductDto update(Long id, ProductDto dto) throws Exception {
         Products products = productRepo.findById(id).orElseThrow(() ->
                 new Exception("Продукта с такими не существует. "));
         products.setProductName(dto.getProductName());
