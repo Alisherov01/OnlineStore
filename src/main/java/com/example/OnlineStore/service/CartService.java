@@ -1,12 +1,9 @@
 package com.example.OnlineStore.service;
 
-import com.example.OnlineStore.dto.CardDto;
 import com.example.OnlineStore.dto.CartDto;
-import com.example.OnlineStore.dto.ProductDto;
 import com.example.OnlineStore.entity.Cart;
 import com.example.OnlineStore.entity.Products;
 import com.example.OnlineStore.mappers.CartMapper;
-import com.example.OnlineStore.mappers.ProductMapper;
 import com.example.OnlineStore.repository.CartRepo;
 import com.example.OnlineStore.repository.ProductRepo;
 import lombok.AllArgsConstructor;
@@ -15,15 +12,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class CartService {
-    CartRepo cartRepo;
+    private final CartRepo cartRepo;
     private final ProductRepo productRepository;
-
-    CartMapper cartMapper;
+    private final CartMapper cartMapper;
 
 
     public List<CartDto> getAll() {

@@ -17,8 +17,8 @@ import java.math.BigDecimal;
 @Slf4j
 @RequestMapping("/auth")
 public class PaymentController {
-    PaymentService service;
-    CardService cardService;
+    private final PaymentService service;
+    private final CardService cardService;
 
     @PostMapping("POST/payment")
     public ResponseMessage<Long> create(@RequestBody PaymentDto dto) {
@@ -51,7 +51,7 @@ public class PaymentController {
     }
 
     @PostMapping("/payment/card")
-    public ResponseMessage<BigDecimal> payWithCard(@RequestParam String CVVCode, @RequestParam Long id) {
+    public ResponseMessage<BigDecimal> payWithCard(@RequestParam Integer CVVCode, @RequestParam Long id) {
         try {
             return new ResponseMessage<>(
                     cardService.payWithCard(CVVCode, id),

@@ -14,9 +14,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class CategoriesService {
-    CategoriesRepo categoriesRepo;
+    private final CategoriesRepo categoriesRepo;
 
-    CategoriesMapper categoriesMapper;
+    private final CategoriesMapper categoriesMapper;
 
     public List<CategoriesDto> getAll() {
         List<CategoriesDto> dtos = new ArrayList<>();

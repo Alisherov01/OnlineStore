@@ -29,6 +29,8 @@ public class AdminController {
 
     private final CartService cartService;
 
+    private final DiscountService discountService;
+
 
 
 
@@ -117,7 +119,7 @@ public class AdminController {
             return new ResponseMessage<>(
                     categoriesService.update(id, dto),
                     ResultCode.SUCCESS,
-                    "Категория успешно обновлена. ",
+                    "Парметры категорий успешно обновлены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("error");
@@ -153,7 +155,7 @@ public class AdminController {
             return new ResponseMessage<>(
                     orderService.update(id, dto),
                     ResultCode.SUCCESS,
-                    "Заказ успешно обновлена. ",
+                    "Параметры заказа успешно обновлены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("error");
@@ -174,7 +176,7 @@ public class AdminController {
             return new ResponseMessage<>(
                     paymentService.update(id, dto),
                     ResultCode.SUCCESS,
-                    "Оплата успешно обнавлена. ",
+                    "Параметры оплаты успешно обнавлены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("PaymentService: update ", e);
@@ -193,7 +195,7 @@ public class AdminController {
 
 
 
-    //роут для продуктов
+    //роуты для Одежды
     @DeleteMapping("/api/products/remove/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
@@ -205,7 +207,7 @@ public class AdminController {
             return new ResponseMessage<>(
                     productService.createProduct(dto),
                     ResultCode.SUCCESS,
-                    "Продукт успешно создан. ",
+                    "Одежда успешно создана. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("PaymentService: create ", e);
@@ -220,7 +222,7 @@ public class AdminController {
             return new ResponseMessage<>(
                     productService.update(id, dto),
                     ResultCode.SUCCESS,
-                    "Продукт успешно обновлен. ",
+                    "Параметры одежды успешно обновлены. ",
                     ResultCode.SUCCESS.getHttpCode());
         } catch (Exception e) {
             log.error("error");
@@ -269,6 +271,32 @@ public class AdminController {
     @DeleteMapping("/api/user/remove/{id}")
     public void deleteUsers(@PathVariable Long id) {
         usersService.deleteUsers(id);
+    }
+
+
+
+
+
+    //роуты для одежды с процентами
+
+    @PostMapping("/api/productWithDiscount/create")
+    public ResponseMessage<Long> createProductWithDiscount(@RequestBody DiscountDto dto) {
+        try {
+            return new ResponseMessage<>(
+                    discountService.createProductWithDiscount(dto),
+                    ResultCode.SUCCESS,
+                    "Одежда успешно создана. ",
+                    ResultCode.SUCCESS.getHttpCode());
+        } catch (Exception e) {
+            log.error("PaymentService: create ", e);
+            return new ResponseMessage<>(
+                    null, ResultCode.FAIL, e.getMessage(), ResultCode.FAIL.getHttpCode());
+        }
+    }
+
+    @DeleteMapping("/api/removeProductWithDiscount/{id}")
+    void deleteProductWithDiscount(@PathVariable Long id) {
+        categoriesService.deleteCategory(id);
     }
 
 }

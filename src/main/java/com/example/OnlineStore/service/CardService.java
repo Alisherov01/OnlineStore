@@ -1,33 +1,24 @@
 package com.example.OnlineStore.service;
 
 import com.example.OnlineStore.dto.CardDto;
-import com.example.OnlineStore.dto.OrderBillDto;
-import com.example.OnlineStore.entity.*;
-import com.example.OnlineStore.mappers.CartMapper;
-import com.example.OnlineStore.mappers.OrderMapper;
+import com.example.OnlineStore.entity.Card;
+import com.example.OnlineStore.entity.Orders;
+import com.example.OnlineStore.entity.Products;
 import com.example.OnlineStore.repository.CardRepo;
-import com.example.OnlineStore.repository.CartRepo;
 import com.example.OnlineStore.repository.OrderRepo;
-import com.example.OnlineStore.repository.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class CardService {
-    CardRepo cardRepo;
+    private final CardRepo cardRepo;
+    private final OrderRepo orderRepo;
 
-    CartRepo cartRepo;
-
-    CartMapper cartMapper;
-    OrderRepo orderRepo;
-
-    OrderMapper orderMapper;
 
     public Long save(CardDto dto) {
         Card card = new Card();
@@ -39,7 +30,7 @@ public class CardService {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public BigDecimal payWithCard(String CVVCode, Long id) throws Exception {
+    public BigDecimal payWithCard(Integer CVVCode, Long id) throws Exception {
         Orders orders = orderRepo.findById(id).orElseThrow(()
                 -> new Exception("Нет заказа с такими днными."));
 

@@ -20,10 +20,10 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class UsersService {
-    private UserRepo userRepo;
-    private EmailService emailService;
-    private PasswordEncoder passwordEncoder;
-    private UserMapper userMapper;
+    private final UserRepo userRepo;
+    private final EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     public Long registrationUser(UserDto dto){
         Users users = new Users();

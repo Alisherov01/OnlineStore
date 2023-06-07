@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class OrderService {
-    private final  OrderRepo orderRepo;
+    private final OrderRepo orderRepo;
     private final OrderMapper orderMapper;
 
     public OrderBillDto getAll() {

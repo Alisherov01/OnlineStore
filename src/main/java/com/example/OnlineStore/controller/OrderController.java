@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/auth")
 public class OrderController {
-    OrderService orderService;
+    private final OrderService orderService;
 
     @GetMapping("/api/order/{id}")
     public ResponseMessage<OrderBillDto> getById(@PathVariable Long id) {

@@ -22,9 +22,6 @@ public class Payment {
     @DateTimeFormat(pattern = "yyyy:MM:dd")
     private LocalDate time = LocalDate.now();
 
-    @Column(length = 50)
-    private Integer orderSum;
-
     @JsonIgnore
     @OneToOne
     private Users users;
