@@ -64,5 +64,5 @@ Atai Bektenaliev
 ### *Postman collections to the service*
 
 
-[https://api.postman.com/collections/25575367-08e2c803-c0f7-4193-95aa-4b9c9af09e07?access_key=PMAT-01H2B4T6KA7GVCP6YANHDNPMQD]()
+[OnlineSttre](https://api.postman.com/collections/25575367-08e2c803-c0f7-4193-95aa-4b9c9af09e07?access_key=PMAT-01H2B4T6KA7GVCP6YANHDNPMQD)
 
